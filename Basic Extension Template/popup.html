@@ -27,17 +27,22 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="jquery-3.1.1.js"></script>
-	<script src="jqueryajax.js"></script>
+    <!-- <script src="jquery-3.1.1.js"></script>
+	<script src="jqueryajax.js"></script> -->
+	<script src="chromestorage.js"></script>
   </head>
   <body>
   <p id="demo"></p>
     <!--<div id="status"></div>
     <img id="image-result" hidden>-->
-	<button>Get External Content</button>
+	<!-- <button id="pullfile">Get External Content</button> -->
 	<br>
 	<br>
 	<textarea id="userinput" rows="4" cols="50">Demo Text Here!</textarea>
+	<br>
+	<br>
+	<button id="submit">Store</button><button id="retrieve">Load</button><div id="status"></div>
+	
   </body>
 </html>
 

@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	
 	"name": "Getting started example",
-	"description": "This extension shows a Google Image search result for the current page",
+	"description": "This extension demonstrates save/load functionality via the google.storage API",
 	"version": "1.0",
 	
 	"browser_action": {
@@ -12,6 +12,7 @@
 	},
 	"permissions": [
 		"activeTab",
-		"https://ajax.googleapis.com/"
+		// Grants access to google.storage API
+		"storage"
 	]
 }
