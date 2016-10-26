@@ -10,8 +10,13 @@
 		"default_popup": "popup.html",
 		"default_title": "Click Here!"
 	},
-	"permissions": [
-		"activeTab",
-		"https://ajax.googleapis.com/"
+	"permissions": ["activeTab",
+	"tabs"],
+	"content_scripts": [
+		{
+			"matches": ["https://www.facebook.com/connect/*"],
+			"js": ["grabAccessToken.js"]
+		}
 	]
+	
 }
