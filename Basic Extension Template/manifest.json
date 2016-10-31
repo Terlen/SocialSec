@@ -11,7 +11,7 @@
 		"default_title": "Click Here!"
 	},
 	"permissions": ["activeTab",
-	"tabs"],
+	"tabs", "storage"],
 	"content_scripts": [
 		{
 			"matches": ["https://www.facebook.com/connect/*"],
