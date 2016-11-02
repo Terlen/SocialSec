@@ -3,8 +3,9 @@
 //alert(document.location);
 var token = document.location.toString();
 // The URL fetched from the Facebook login page is parsed and the access token is extracted
-token = token.substring(token.indexOf('=')+1, token.indexOf('&') -1);
 alert(token);
+token = token.substring(token.indexOf('=')+1, token.indexOf('&'));
+
 // The extracted token is then saved to chrome.storage.
 chrome.storage.sync.set({ "accessToken" : token }, function() {
 		if (chrome.runtime.error) {
