@@ -14,4 +14,10 @@ function httpGetAsync(theUrl, callback)
 function GetAlert(response) {
 	alert(response);
 }
-
+function jsonParse(json) {
+	// Facebook JSON formatted data is converted to an object for easier handling.
+	var userData = JSON.parse(json);
+	//var userArray = Object.keys(userData).map(function(k) {return userData[k]});
+	// Debugging: Print the object in console for examination
+	console.log(userData);
+}
