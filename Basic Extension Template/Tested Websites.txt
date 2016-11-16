@@ -1,0 +1,15 @@
+WORKING AS INTENDED:
+hotslogs.com
+roosterteeth.com
+godaddy.com
+dotabuff.com
+lemonde.fr
+my.asu.edu
+giantbomb.com
+
+NOT WORKING:
+trycookin.com (loading page directly works, navigating to it doesn't)
+
+
+NOT RUNNING SCRIPT:
+
