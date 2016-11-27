@@ -10,14 +10,9 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
 }
-// Debugging function that serves as the callback function for httpGetAsync. Generates a popup dialog containing the returned JSON from the API call.
-function GetAlert(response) {
-	alert(response);
-}
+
 function jsonParse(json) {
 	// Facebook JSON formatted data is converted to an object for easier handling.
 	var userData = JSON.parse(json);
-	//var userArray = Object.keys(userData).map(function(k) {return userData[k]});
-	// Debugging: Print the object in console for examination
 	console.log(userData);
 }
