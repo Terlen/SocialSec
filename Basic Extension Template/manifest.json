@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 	
-	"name": "Getting started example",
-	"description": "This extension shows a Google Image search result for the current page",
+	"name": "Progress Meeting 11-28 Demo",
+	"description": "This extension is a collection of scripts that demonstrate key functions of our project.",
 	"version": "1.0",
 	
 	"browser_action": {
@@ -16,6 +16,11 @@
 		{
 			"matches": ["https://www.facebook.com/connect/*"],
 			"js": ["grabAccessToken.js"]
+		},
+		{
+			"matches": ["<all_urls>"],
+			"js": ["passwordDetect.js"],
+			"all_frames": true
 		}
 	]
 	
