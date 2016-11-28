@@ -1,6 +1,6 @@
 // Function handling storage and retrieval of data via the chrome.storage API
 // Waits for popup.html to fully load before executing so all buttons are available
-window.onload = function() {
+function storage() {
 	// Eventhandler for Load button click
 	document.getElementById("retrieve").onclick = function() {
 		// chrome.storage API call, retrieve data stored under key "myKey", inject the data back into the textarea.
