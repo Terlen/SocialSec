@@ -12,8 +12,6 @@ function httpGetAsync(theUrl, callback)
 }
 
 function jsonParse(json) {
-	// Facebook JSON formatted data is converted to an object for easier handling.
+	// Facebook JSON formatted data is displayed in the extension popup
 	document.write(json);
-	//var userData = JSON.parse(json);
-	//console.log(userData);
 }

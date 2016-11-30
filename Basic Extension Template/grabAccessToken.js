@@ -1,5 +1,5 @@
 // This is a content script that runs on any page with a URL of https://www.facebook.com/connect/*
-// It is used to grab the user access token after they log in through the extension
+// It is used to grab the user access token after they log in to Facebook through the extension
 var token = document.location.toString();
 // The URL fetched from the Facebook login page is parsed and the access token is extracted
 alert(token);

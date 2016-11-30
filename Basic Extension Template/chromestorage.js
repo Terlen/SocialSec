@@ -3,7 +3,7 @@
 function storage() {
 	// Eventhandler for Load button click
 	document.getElementById("retrieve").onclick = function() {
-		// chrome.storage API call, retrieve data stored under key "myKey", inject the data back into the textarea.
+		// chrome.storage API call, retrieve data stored under key "myKey"
 		chrome.storage.sync.get("myKey", function(items){
 		// Display fetch results on page
 		document.getElementById("demo").innerText = items.myKey;
