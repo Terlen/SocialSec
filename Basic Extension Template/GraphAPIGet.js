@@ -11,10 +11,17 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
+// Facebook JSON formatted data is converted to an object for easier handling.
 function jsonParse(json) {
-	// Facebook JSON formatted data is converted to an object for easier handling.
 	var userData = JSON.parse(json);
-	console.log(userData);
-	var userID = userData.id;
-	
+	wordlistStore(userData);
+}
+
+// Store JSON object in Google storage to retrieve later
+function wordlistStore(jsonobject) {
+	chrome.storage.sync.set({ "userdata" : jsonobject}, function() {
+		if (chrome.runtime.error){
+			alert("Runtime Error");
+		}
+});
 }
