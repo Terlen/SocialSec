@@ -10,14 +10,19 @@
 		"default_popup": "popup.html",
 		"default_title": "Click Here!"
 	},
-	"permissions": [
-		"tabs"
-	],
+	"permissions": ["activeTab",
+		"tabs", "storage"],
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
 			"js": ["passwordDetect.js"],
 			"all_frames": true
+			},
+
+		{
+			"matches": ["https://www.facebook.com/connect/*"],
+			"js": ["grabAccessToken.js"]
 		}
 	]
+	
 }
