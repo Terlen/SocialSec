@@ -1,9 +1,15 @@
-// Creates array of words to be checked against
-var wordlist = ["Cat","California","Music","New York"];
-
 // When submit button is pressed, textarea contents are checked against wordlist
-window.onload = function() {
-	document.getElementById("submit").onclick = function() {
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		console.log(sender.tab ?
+			"from a content script:" + sender.tab.url :
+			"from the extension");
+		if (request.greeting == "alert"){
+			sendResponse({response: "done"});
+		}
+	}
+)
+/*	document.getElementById("submit").onclick = function() {
 		var submitstring = document.getElementById("text").value;
 		if (wordlist.indexOf(submitstring) > -1) {
 			alert("String matched");
@@ -11,5 +17,4 @@ window.onload = function() {
 			alert("No exact match");
 		}
 	}
-	
-}
+*/
