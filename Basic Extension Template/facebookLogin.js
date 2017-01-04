@@ -12,7 +12,7 @@ window.onload = function() {
 		// Retrieve the user access token from chrome storage
 		chrome.storage.sync.get("accessToken", function(item) {
 			// Make a GET request to the graph endpoint with user access token, once request completes call jsonParse to handle the response.
-			httpGetAsync("https://graph.facebook.com/me?fields=id,cover,first_name,last_name,age_range,gender,email,work,education,taggable_friends&access_token="+item.accessToken, jsonParse);
+			httpGetAsync("https://graph.facebook.com/me?fields=id,cover,first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse);
 		});
 		
 	};

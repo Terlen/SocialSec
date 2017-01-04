@@ -33,20 +33,19 @@ function dataCleanup(bigData) {
 	delete bigData.taggable_friends.paging;
 	for (var x = 0; x < bigData.work.length; x++){
 		// delete operator has issues handling undefined values, safety is implemented to avoid typeError later
-		var safety = bigData['work'][x]['location']
+		var workSafety = bigData['work'][x]['location'];
 		delete bigData['work'][x]['employer']['id'];
 		delete bigData.work[x].id;
 		delete bigData.work[x].description;
 		delete bigData.work[x].end_date;
 		delete bigData.work[x].start_date;
 		// error prevention / handling
-		if (safety == null){
-			continue;
-		}
-		else{
+		if (workSafety != null){
 			delete bigData['work'][x]['location']['id'];
 			delete bigData.work[x].position.id;
 		}
+		delete bigData.favorite_teams[x].id;
+		delete bigData.hometown.id;
 	}
 	wordlistStore(bigData);
 }
