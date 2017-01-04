@@ -1,0 +1,32 @@
+// This is a copy of the manifest.JSON file that goes with our extension.
+// Because JSON doesn't support comments, this file serves no functional purpose other than providing insight to the structure and purpose of the manifest file.
+{
+	"manifest_version": 2,
+	 // Basic extension description
+	"name": "Getting started example",
+	"description": "This extension shows a Google Image search result for the current page",
+	"version": "1.0",
+	// Defines browser / extension interaction such as extension icon, tooltip, and html page to be loaded when extension icon is clicked.
+	"browser_action": {
+		"default_icon": "icon.png",
+		"default_popup": "popup.html",
+		"default_title": "Click Here!"
+	},
+	/* Defines permissions required by extension upon installation. This is not finalized, but allows the extension to function during testing. Later refinements and testing will seek to minimize required
+	   permissions. */
+	"permissions": [
+		// Grants access to information about the browser's tabs.
+		"tabs"
+	],
+	// Defines any content scripts that are used by the extension. Content scripts run independently of the extension popup page, but have full access to anything granted in permissions section.
+	"content_scripts": [
+		{
+			// Defines which pages will run the content script.
+			"matches": ["<all_urls>"],
+			// Defines which JS file to execute
+			"js": ["passwordDetect.js"],
+			// Grants content script access to any iframes in pages it runs on. Currently required to detect some password fields. May not be necessary with additional testing / code.
+			"all_frames": true
+		}
+	]
+}

