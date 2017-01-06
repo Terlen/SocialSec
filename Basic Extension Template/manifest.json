@@ -23,6 +23,10 @@
 			"matches": ["https://www.facebook.com/connect/*"],
 			"js": ["grabAccessToken.js"]
 		}
-	]
+	],
+	"background": {
+		"scripts": ["wordcompare.js"],
+		"persistent": false
+	}
 	
 }

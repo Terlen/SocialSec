@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(
 			"from a content script:" + sender.tab.url :
 			"from the extension");
 		if (request.greeting == "alert"){
-			sendResponse({response: "done"});
+			sendResponse({complete: "done"});
 		}
 	}
 )
