@@ -20,13 +20,17 @@ function jsonParse(json) {
 // Deletes unnecessary data from JSON to reduce size of object for storage.
 // Quick and dirty code, can be improved later.
 function dataCleanup(bigData) {
+	var dataValues = [];
 	for (var x = 0; x < bigData.education.length; x++){
+		dataValues.push(bigData.education[x].school.name);
+		dataValues.push(bigData.education[x].year.name);
 		delete bigData.education[x].id;
 		delete bigData.education[x].school.id;
 		delete bigData.education[x].year.id;
 	}
 	delete bigData.id;
 	for (var x = 0; x < bigData.taggable_friends.data.length; x++){
+		dataValues.push(bigData.taggable_friends.data[x].name);
 		delete bigData.taggable_friends.data[x].id;
 		delete bigData.taggable_friends.data[x].picture;
 	}
@@ -34,6 +38,7 @@ function dataCleanup(bigData) {
 	for (var x = 0; x < bigData.work.length; x++){
 		// delete operator has issues handling undefined values, safety is implemented to avoid typeError later
 		var workSafety = bigData['work'][x]['location'];
+		dataValues.push(bigData['work'][x]['employer']['name']);
 		delete bigData['work'][x]['employer']['id'];
 		delete bigData.work[x].id;
 		delete bigData.work[x].description;
@@ -41,12 +46,17 @@ function dataCleanup(bigData) {
 		delete bigData.work[x].start_date;
 		// error prevention / handling
 		if (workSafety != null){
+			dataValues.push(bigData['work'][x]['position']['name']);
+			dataValues.push(bigData['work'][x]['location']['name']);
 			delete bigData['work'][x]['location']['id'];
 			delete bigData.work[x].position.id;
 		}
+		dataValues.push(bigData.favorite_teams[x].name);
+		dataValues.push(bigData.hometown.name);
 		delete bigData.favorite_teams[x].id;
 		delete bigData.hometown.id;
 	}
+	console.log(dataValues);
 	wordlistStore(bigData);
 }
 
