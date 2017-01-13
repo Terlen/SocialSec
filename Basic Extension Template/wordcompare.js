@@ -4,12 +4,14 @@ chrome.runtime.onMessage.addListener(
 		console.log(sender.tab ?
 			"from a content script:" + sender.tab.url :
 			"from the extension");
-		if (request.greeting == "alert"){
+		if (request.greeting != null){
 			sendResponse({complete: "done"});
 		}
+		wordMatch(request.greeting);
 	}
 )
-/*	document.getElementById("submit").onclick = function() {
+function wordMatch(text){
+	document.getElementById("submit").onclick = function() {
 		var submitstring = document.getElementById("text").value;
 		if (wordlist.indexOf(submitstring) > -1) {
 			alert("String matched");
@@ -17,4 +19,4 @@ chrome.runtime.onMessage.addListener(
 			alert("No exact match");
 		}
 	}
-*/
+}
