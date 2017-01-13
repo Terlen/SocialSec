@@ -1,10 +1,11 @@
+// Reference material, not working script.
 
-// this variable is required to create a notification. It can be customized before the notification is created by setting options.message = "Some string"
+// This variable is required to create a notification. It can be customized before the notification is created by setting options.message = "Some string"
 var options = {
 	type:"basic",
 	title:"SocialSec",
 	message:"",
-	iconUrl:"popup.jpg",
+	iconUrl:"icon.png",
 	
 	};
 
