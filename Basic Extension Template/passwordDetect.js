@@ -9,10 +9,10 @@ function passwordGrab(){
 	}
 
 	// Debugging function to create alert box with content of password field. Used to verify code is working as intended. Field content will later be compared against wordlist.
-	function alertContent(){
-		chrome.runtime.sendMessage({greeting: "alert"}, function(response){
-			console.log(response.complete);
-		});
+	function alertContent(value){
+		//chrome.runtime.sendMessage({pass : value}, function(response){
+			//console.log(response.complete);
+		alert(value);
+		};
 	}
-}
 passwordGrab();
