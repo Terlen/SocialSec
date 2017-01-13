@@ -25,3 +25,4 @@ function userSettings(){
 
 //This will change the icon file in the manifest and then change the icon on the browser
 chrome.browserAction.setIcon({path:"icon2.png"});
+chrome.browserAction.setPopup({popup:"popup2.html"});
