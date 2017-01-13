@@ -27,37 +27,14 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-	<script src="facebookLogin2.js"></script>
+	<script src="facebookLogin.js"></script>
 	<script src="GraphAPIGet.js"></script>
-	<script src="wordcompare.js"></script>
-	<script src="chromestorage.js"></script>
-	<script src="popup.js"></script>
   </head>
   <body>
-	<!-- Facebook API Demo -->
-    <div id="FacebookAPI Demo">
-	<h2>Facebook Integration</h2>
+    <div id="demo"></div>
 	<button id="Login">Log in to Facebook</button>
+	<!-- <a href="https://www.facebook.com/dialog/oauth?client_id=<APP_ID>&response_type=token&scope=<PERMISSIONS>&redirect_uri=http://www.facebook.com/connect/login_success.html">Log in with Facebook</a> -->
 	<button id="Get">TEST</button>
-	</div>
-	<hr>
-	<!-- Wordlist Matching Demo -->
-	<div id="Wordlist Matching Demo">
-	<h2>Wordlist Matching</h2>
-	Demo wordlist: Cat, California, Music, New York
-	<input type="text" id="text"/>
-	<button id="submit">Wordlist Match</button>
-	</div>
-	<hr>
-	<!-- Chrome Storage API Demo -->
-	<div id="Chrome Storage Demo">
-	<h2>Chrome Storage Demo</h2>
-	<textarea id="userinput"></textarea>
-	<button id="submittext">Store Data</button>
-	<button id="retrieve">Fetch Data</button>
-	<p id="demo"></p>
-	<p id="status"></p>
-	</div>
   </body>
 </html>
 
