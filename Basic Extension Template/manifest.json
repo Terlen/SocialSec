@@ -1,17 +1,17 @@
 {
 	"manifest_version": 2,
 	
-	"name": "Getting started example",
-	"description": "This extension shows a Google Image search result for the current page",
+	"description": "This extension is a collection of scripts that demonstrate key functions of our project.",
 	"version": "1.0",
 	
 	"browser_action": {
-		"default_icon": "icon.png",
+		"default_icon" : "icon2.png",
 		"default_popup": "popup.html",
 		"default_title": "Click Here!"
 	},
 	"permissions": ["activeTab",
-		"tabs", "storage"],
+	"tabs", "storage", "notifications"],
+	
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
@@ -22,7 +22,7 @@
 		{
 			"matches": ["https://www.facebook.com/connect/*"],
 			"js": ["grabAccessToken.js"]
-		}
+		},
 	],
 	"background": {
 		"scripts": ["wordcompare.js"],
