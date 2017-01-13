@@ -1,6 +1,7 @@
 {
 	"manifest_version": 2,
 	
+	"name": "Protoype Build",
 	"description": "This extension is a collection of scripts that demonstrate key functions of our project.",
 	"version": "1.0",
 	
@@ -22,8 +23,9 @@
 		{
 			"matches": ["https://www.facebook.com/connect/*"],
 			"js": ["grabAccessToken.js"]
-		},
+		}
 	],
+	
 	"background": {
 		"scripts": ["wordcompare.js"],
 		"persistent": false
