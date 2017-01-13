@@ -6,7 +6,12 @@ chrome.runtime.onMessage.addListener(
 			"from the extension");
 		if (request.greeting != null){
 			sendResponse({complete: "done"});
-		}
+		/*} else if (requeest.greeting = "secure"){
+			sendResponse({complete: "it's working"});
+			
+			chrome.browserAction.setIcon({path:"icon2.png"});
+			chrome.browserAction.setPopup({popup:"popup2.html"});
+	}*/}
 		wordMatch(request.greeting);
 	}
 )

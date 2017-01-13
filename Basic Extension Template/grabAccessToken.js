@@ -2,9 +2,11 @@
 // It is used to grab the user access token after they log in through the extension
 var token = document.location.toString();
 // The URL fetched from the Facebook login page is parsed and the access token is extracted
-alert(token);
 token = token.substring(token.indexOf('=')+1, token.indexOf('&'));
 alert(token);
+chrome.runtime.sendMessage({greeting: "secure"}, function(response){
+			console.log(response.complete);
+		});
 
 // The extracted token is then saved to chrome.storage.
 chrome.storage.sync.set({ "accessToken" : token }, function() {
@@ -12,6 +14,6 @@ chrome.storage.sync.set({ "accessToken" : token }, function() {
 			alert("Runtime error.");
 		} else {
 			// The login success page has no additional purpose and can safely be closed.
-			window.close();
+			//window.close();
 		}
   });
