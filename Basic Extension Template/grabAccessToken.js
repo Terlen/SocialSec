@@ -3,7 +3,6 @@
 var token = document.location.toString();
 // The URL fetched from the Facebook login page is parsed and the access token is extracted
 token = token.substring(token.indexOf('=')+1, token.indexOf('&'));
-alert(token);
 chrome.runtime.sendMessage({greeting:"secure"}, function(response){
 			console.log(response.complete);
 		});
@@ -17,3 +16,4 @@ chrome.storage.sync.set({ "accessToken" : token }, function() {
 			//window.close();
 		}
   });
+window.close();
