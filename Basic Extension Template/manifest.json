@@ -1,0 +1,34 @@
+{
+	"manifest_version": 2,
+	
+	"name": "Protoype Build",
+	"description": "This extension is a collection of scripts that demonstrate key functions of our project.",
+	"version": "1.0",
+	
+	"browser_action": {
+		"default_icon" : "icon2.png",
+		"default_popup": "popup.html",
+		"default_title": "Click Here!"
+	},
+	"permissions": ["activeTab",
+	"tabs", "storage", "notifications"],
+	
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["passwordDetect.js"],
+			"all_frames": true
+			},
+
+		{
+			"matches": ["https://www.facebook.com/connect/*"],
+			"js": ["grabAccessToken.js"]
+		}
+	],
+	
+	"background": {
+		"scripts": ["wordcompare.js","browserAction.js"],
+		"persistent": false
+	}
+	
+}
