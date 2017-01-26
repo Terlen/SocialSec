@@ -1,4 +1,4 @@
-// HTTP GET request function. 'theUrl' is passed from FacebookLogin.js and consists of the desired Graph API endpoint with the user's access token appended.
+// HTTP GET request function. 'theUrl' is passed from getData and consists of the desired Graph API endpoint with the user's access token appended.
 function httpGetAsync(theUrl, callback)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -11,14 +11,14 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
+// Retrieve the user access token from chrome storage, then call httpGetAsync to send a GET using fetched token.
 function getData() {
-	// Retrieve the user access token from chrome storage
 	chrome.storage.sync.get("accessToken", function(item) {
-		// Make a GET request to the graph endpoint with user access token, once request completes call jsonParse to handle the response.
+		// GET request to custom GraphAPI endpoint. Utilizes the access token stored in Google Storage
 		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse);
 	});
-	
 };
+
 // Facebook JSON formatted data is converted to an object for easier handling.
 function jsonParse(json) {
 	var userData = JSON.parse(json);
