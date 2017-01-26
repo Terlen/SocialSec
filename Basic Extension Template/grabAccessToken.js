@@ -13,7 +13,6 @@ chrome.storage.sync.set({ "accessToken" : token }, function() {
 			alert("Runtime error.");
 		} else {
 			// The login success page has no additional purpose and can safely be closed.
-			//window.close();
+			window.close();
 		}
   });
-window.close();

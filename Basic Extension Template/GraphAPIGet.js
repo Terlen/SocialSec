@@ -11,6 +11,14 @@ function httpGetAsync(theUrl, callback)
     xmlHttp.send(null);
 }
 
+function getData() {
+	// Retrieve the user access token from chrome storage
+	chrome.storage.sync.get("accessToken", function(item) {
+		// Make a GET request to the graph endpoint with user access token, once request completes call jsonParse to handle the response.
+		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse);
+	});
+	
+};
 // Facebook JSON formatted data is converted to an object for easier handling.
 function jsonParse(json) {
 	var userData = JSON.parse(json);
@@ -56,7 +64,6 @@ function dataCleanup(bigData) {
 		delete bigData.favorite_teams[x].id;
 		delete bigData.hometown.id;
 	}
-	console.log(dataValues);
 	wordlistStore(bigData);
 }
 
@@ -68,3 +75,5 @@ function wordlistStore(jsonobject) {
 		}
 });
 }
+
+getData();
