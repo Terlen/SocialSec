@@ -27,12 +27,12 @@ function getPicture() {
 }
 // Facebook JSON formatted data is converted to an object for easier handling.
 function jsonParse(json,type) {
-	var userData = JSON.parse(json);
+	//var userData = JSON.parse(json);
 	if (type == "img"){
-		wordlistStore(userData,"img")
+		wordlistStore("userpic",json)
 	} 
 	else {
-		wordlistStore(userData,"data");
+		wordlistStore("userdata",json);
 	}
 	
 	//dataCleanup(userData);
@@ -81,7 +81,22 @@ function dataCleanup(bigData) {
 }
 
 // Store JSON object in Google storage to retrieve later
-function wordlistStore(jsonobject,type) {
+function wordlistStore(key, object){
+	var i = 0;
+	var storageItem = {};
+	
+	while (object.length > 0) {
+		var index = key + "_" + i++;
+		var length = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - index.length - 2;
+		var segment = object.substr(0, length);
+		while (JSON.stringify(segment).length > length)
+			segment = object.substr(0, --length);
+		storageItem[index] = segment;
+		object = object.substr(length);
+	}
+}
+
+/*function wordlistStore(jsonobject,type) {
 	if (type == "data"){
 		chrome.storage.sync.set({ "userdata" : jsonobject}, function() {
 		if (chrome.runtime.error){
@@ -97,3 +112,4 @@ function wordlistStore(jsonobject,type) {
 		});
 	}
 }
+*/

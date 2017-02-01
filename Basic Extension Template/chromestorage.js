@@ -18,35 +18,3 @@ function userSettings(){
 		
 }
 	
-function storage() {
-	// Eventhandler for Load button click
-	document.getElementById("retrieve").onclick = function() {
-		// chrome.storage API call, retrieve data stored under key "myKey", inject the data back into the textarea.
-		chrome.storage.sync.get("myKey", function(items){
-		// Display fetch results on page
-		options.message = items.myKey;
-		chrome.browserAction.setIcon({path:"icon2.png"});
-		chrome.notifications.create(options);
-	});
-		
-	}
-	// Eventhandler for Submit button click
-	document.getElementById("submittext").onclick = function() {
-		// Pull data from textarea and store in 'd'
-		var d = document.getElementById("userinput").value;
-		// chrome.storage API call, save data 'd' with key "myKey"
-		chrome.storage.sync.set({ "myKey" : d }, function() {
-		if (chrome.runtime.error) {
-			console.log("Runtime error.");
-		} else {
-			options.message = "Data Saved!"
-			chrome.browserAction.setIcon({path:"icon.png"});
-			chrome.notifications.create(options);
-
-		}
-		// Empty textarea after data is saved
-		document.getElementById("userinput").value = "";
-  });
-};
-	
-}
