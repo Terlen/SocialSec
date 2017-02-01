@@ -23,6 +23,7 @@ function getData() {
 function jsonParse(json) {
 	var userData = JSON.parse(json);
 	dataCleanup(userData);
+	wordlistStore(userData);
 }
 
 // Deletes unnecessary data from JSON to reduce size of object for storage.
