@@ -89,15 +89,14 @@ function wordlistStore(key, object){
 	while (jsonstr.length > 0) {
 		var index = key + "_" + i++;
 		alert(index);
-		var length = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - index.length - 2;
-		alert(length);
-		var segment = jsonstr.substr(0, length);
+		var valueLength = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - index.length - 2;
+		var segment = jsonstr.substr(0, valueLength);
 		alert(segment);
-		while (JSON.stringify(segment).length > length)
-			segment = jsonstr.substr(0, --length);
+		//while (JSON.stringify(segment).length > valueLength)
+		//	segment = jsonstr.substr(0, --valueLength);
 		storageItem[index] = segment;
 		alert(storageItem[index]);
-		jsonstr = jsonstr.substr(length);
+		jsonstr = jsonstr.substr(valueLength);
 	}
 	chrome.storage.sync.set(storageItem);
 }
