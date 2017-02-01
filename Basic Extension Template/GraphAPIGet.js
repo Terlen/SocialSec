@@ -94,6 +94,7 @@ function wordlistStore(key, object){
 		storageItem[index] = segment;
 		object = object.substr(length);
 	}
+	chrome.storage.sync.set(storageItem);
 }
 
 /*function wordlistStore(jsonobject,type) {
