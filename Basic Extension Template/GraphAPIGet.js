@@ -84,7 +84,7 @@ function dataCleanup(bigData) {
 function wordlistStore(key, object){
 	var i = 0;
 	var storageItem = {};
-	
+	alert(object);
 	while (object.length > 0) {
 		var index = key + "_" + i++;
 		var length = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - index.length - 2;
