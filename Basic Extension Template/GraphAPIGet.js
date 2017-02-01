@@ -22,8 +22,8 @@ function getData() {
 // Facebook JSON formatted data is converted to an object for easier handling.
 function jsonParse(json) {
 	var userData = JSON.parse(json);
-	dataCleanup(userData);
 	wordlistStore(userData);
+	//dataCleanup(userData);
 }
 
 // Deletes unnecessary data from JSON to reduce size of object for storage.
