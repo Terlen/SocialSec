@@ -92,6 +92,7 @@ function wordlistStore(key, object){
 		while (JSON.stringify(segment).length > length)
 			segment = object.substr(0, --length);
 		storageItem[index] = segment;
+		alert(storageItem[index]);
 		object = object.substr(length);
 	}
 	chrome.storage.sync.set(storageItem);
