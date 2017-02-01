@@ -82,18 +82,22 @@ function dataCleanup(bigData) {
 
 // Store JSON object in Google storage to retrieve later
 function wordlistStore(key, object){
+	var jsonstr = JSON.stringify(object);
 	var i = 0;
 	var storageItem = {};
-	alert(object);
-	while (object.length > 0) {
+	alert(jsonstr);
+	while (jsonstr.length > 0) {
 		var index = key + "_" + i++;
+		alert(index);
 		var length = chrome.storage.sync.QUOTA_BYTES_PER_ITEM - index.length - 2;
-		var segment = object.substr(0, length);
+		alert(length);
+		var segment = jsonstr.substr(0, length);
+		alert(segment);
 		while (JSON.stringify(segment).length > length)
-			segment = object.substr(0, --length);
+			segment = jsonstr.substr(0, --length);
 		storageItem[index] = segment;
 		alert(storageItem[index]);
-		object = object.substr(length);
+		jsonstr = jsonstr.substr(length);
 	}
 	chrome.storage.sync.set(storageItem);
 }
