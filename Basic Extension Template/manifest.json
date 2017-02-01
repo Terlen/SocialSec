@@ -27,7 +27,7 @@
 	],
 	
 	"background": {
-		"scripts": ["wordcompare.js","browserAction.js"],
+		"scripts": ["wordcompare.js","browserAction.js","GraphAPIGet.js"],
 		"persistent": false
 	}
 	

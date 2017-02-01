@@ -1,28 +1,41 @@
-// HTTP GET request function. 'theUrl' is passed from FacebookLogin.js and consists of the desired Graph API endpoint with the user's access token appended.
-function httpGetAsync(theUrl, callback)
+// HTTP GET request function. 'theUrl' is passed from getData and consists of the desired Graph API endpoint with the user's access token appended.
+function httpGetAsync(theUrl, callback, type)
 {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         // XMLHttpRequests are Asynchronous, so this code detects when the request has successfully completed.
 		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+            callback(xmlHttp.responseText,type);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
 }
 
+// Retrieve the user access token from chrome storage, then call httpGetAsync to send a GET using fetched token.
 function getData() {
-	// Retrieve the user access token from chrome storage
 	chrome.storage.sync.get("accessToken", function(item) {
-		// Make a GET request to the graph endpoint with user access token, once request completes call jsonParse to handle the response.
-		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse);
+		// GET request to custom GraphAPI endpoint. Utilizes the access token stored in Google Storage
+		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse, "data");
 	});
-	
 };
+
+function getPicture() {
+	chrome.storage.sync.get("accessToken", function(item) {
+		// GET request to custom GraphAPI endpoint. Utilizes the access token stored in Google Storage
+		httpGetAsync("https://graph.facebook.com/me?fields=picture.height(100).width(100)&access_token="+item.accessToken, jsonParse, "img");
+	});
+}
 // Facebook JSON formatted data is converted to an object for easier handling.
-function jsonParse(json) {
+function jsonParse(json,type) {
 	var userData = JSON.parse(json);
-	dataCleanup(userData);
+	if (type == "img"){
+		wordlistStore(userData,"img")
+	} 
+	else {
+		wordlistStore(userData,"data");
+	}
+	
+	//dataCleanup(userData);
 }
 
 // Deletes unnecessary data from JSON to reduce size of object for storage.
@@ -68,12 +81,19 @@ function dataCleanup(bigData) {
 }
 
 // Store JSON object in Google storage to retrieve later
-function wordlistStore(jsonobject) {
-	chrome.storage.sync.set({ "userdata" : jsonobject}, function() {
+function wordlistStore(jsonobject,type) {
+	if (type == "data"){
+		chrome.storage.sync.set({ "userdata" : jsonobject}, function() {
 		if (chrome.runtime.error){
 			alert("Runtime Error");
 		}
-});
+		});
+	}
+	else if (type == "img"){
+		chrome.storage.sync.set({ "userpic" : jsonobject}, function() {
+		if (chrome.runtime.error){
+			alert("Runtime Error");
+		}
+		});
+	}
 }
-
-getData();

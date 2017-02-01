@@ -5,6 +5,8 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
     if (request.greeting == "secure"){
 		sendResponse({farewell: "goodbye"});
+		getPicture();
+		getData();
 		chrome.browserAction.setIcon({path : "icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
 	} else if (request.passvalue != undefined){
