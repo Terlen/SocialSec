@@ -11,7 +11,10 @@
 		"default_title": "Click Here!"
 	},
 	"permissions": ["activeTab",
-	"tabs", "storage", "notifications"],
+	"tabs", 
+	"storage", 
+	"notifications",
+	"https://www.facebook.com/dialog/oauth"],
 	
 	"content_scripts": [
 		{
@@ -19,6 +22,10 @@
 			"js": ["passwordDetect.js"],
 			"all_frames": true
 			},
+			{
+        "matches":["https://www.facebook.com/robots.txt*"],
+        "js":["injection.js"],
+        "run_at":"document_start"},  
 
 		{
 			"matches": ["https://www.facebook.com/connect/*"],

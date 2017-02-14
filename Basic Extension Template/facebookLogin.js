@@ -1,5 +1,7 @@
 // This script initiates Facebook login and handles the GET request from the Facebook GraphAPI once the user's access token is recovered.
 window.onload = function() {
+	window.oauth2.start();
+	window.oauth2.getToken();
 	// Chrome extension security policy prevents any inline scripts in HTML, so all listeners and triggers must be written in the script itself.
 	document.getElementById("Login").onclick = function() {
 		/* This url is a Facebook OAuth endpoint that generates an access token for the user with the desired permissions. In this request, scope defines the rights requested by the application.
