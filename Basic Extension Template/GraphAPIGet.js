@@ -15,7 +15,7 @@ function httpGetAsync(theUrl, callback, type)
 function getData() {
 	chrome.storage.sync.get("accessToken", function(item) {
 		// GET request to custom GraphAPI endpoint. Utilizes the access token stored in Google Storage
-		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse, "data");
+		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,first_name,last_name,age_range,gender,email&access_token="+item.accessToken, jsonParse, "data");
 	});
 };
 
@@ -32,15 +32,24 @@ function jsonParse(json,type) {
 		wordlistStore(userData,"img")
 	} 
 	else {
-		wordlistStore(userData,"data");
+		dataStrip(userData);
 	}
 	
-	//dataCleanup(userData);
+	
 }
-
+// Removes unnecessary data from storage
+function dataStrip(userData){
+	var cleanData = [];
+	cleanData.push(userData.first_name);
+	cleanData.push(userData.last_name);
+	cleanData.push(userData.email);
+	cleanData.push(userData.age_range.max);
+	cleanData.push(userData.age_range.min);
+	wordlistStore(cleanData,"data");
+}
 // Deletes unnecessary data from JSON to reduce size of object for storage.
 // Quick and dirty code, can be improved later.
-function dataCleanup(bigData) {
+/*function dataCleanup(bigData) {
 	var dataValues = [];
 	for (var x = 0; x < bigData.education.length; x++){
 		dataValues.push(bigData.education[x].school.name);
@@ -78,7 +87,8 @@ function dataCleanup(bigData) {
 		delete bigData.hometown.id;
 	}
 	wordlistStore(bigData);
-}
+}*/
+
 
 // Store JSON object in Google storage to retrieve later
 function wordlistStore(jsonobject,type) {
