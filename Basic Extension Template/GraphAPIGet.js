@@ -40,12 +40,30 @@ function jsonParse(json,type) {
 // Removes unnecessary data from storage
 function dataStrip(userData){
 	var cleanData = [];
-	cleanData.push(userData.first_name);
-	cleanData.push(userData.last_name);
+	cleanData.push(userData.first_name.toLowerCase());
+	cleanData.push(userData.last_name.toLowerCase());
 	cleanData.push(userData.email);
-	cleanData.push(userData.age_range.max);
-	cleanData.push(userData.age_range.min);
+	findDates(cleanData,userData.age_range.max,userData.age_range.min);
 	wordlistStore(cleanData,"data");
+}
+
+function findDates(array,max,min){
+	var date = new Date();
+	var currentYear = date.getFullYear();
+	for (x = 0; x < min+1; x++){
+		array.push(currentYear - x);
+	}
+	if (typeof max != 'undefined'){
+		for (x = min+1; x < max+2; x++){
+		array.push(currentYear -x);
+		}
+	}
+	else{
+		for (x = min; x < 80; x++){
+			array.push(currentYear - x);
+		}
+	}
+	
 }
 // Deletes unnecessary data from JSON to reduce size of object for storage.
 // Quick and dirty code, can be improved later.
