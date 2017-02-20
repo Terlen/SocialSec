@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener(
 		getData();
 		chrome.browserAction.setIcon({path : "icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
+		trieData();
 	} else if (request.passvalue != undefined){
 			notifications(request, sender, sendResponse);
 			return true;
