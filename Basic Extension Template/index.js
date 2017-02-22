@@ -4,11 +4,7 @@ window.onload = function(){
 	chrome.storage.sync.get("userdata",build);
 	
 	document.getElementById("xlist").onclick = function(){
-		var cusList;
-		for(var x =0; x < values.length; x++){
-			cusList += values;
-		}
-		document.getElementById("CusList").innerHTML = cusList;
+		document.getElementById("CusList").innerHTML = values;
 		
 
 }
