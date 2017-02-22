@@ -11,10 +11,10 @@ chrome.runtime.onMessage.addListener(
 		chrome.browserAction.setPopup({popup : "popup2.html"});
 		trieData();
 	} else if (request.passvalue != undefined){
-			alert("GOOOO")
-			alert(request.passvalue);
+			//alert("GOOOO")
+			//alert(request.passvalue);
 			if (trie.contains(trie.root, request.passvalue)){
-				alert("SEND NOTIFICATION");
+				//alert("SEND NOTIFICATION");
 				notifications(request, sender, sendResponse);
 				return true;
 			}
@@ -35,7 +35,7 @@ function notifications(request, sender, sendResponse){
 				type:"basic",
 				title:"SocialSec",
 				message:"",
-				iconUrl:"icon.png",
+				iconUrl:"SS.png",
 	
 	};
 			options.message = "The detected password contains personal information!";
