@@ -61,13 +61,14 @@ Trie.prototype._getWords = function(node, words, word) {
 Trie.prototype.contains = function(node, word) {
 	alert(node.data);
   if(!node || !word) {
+	  alert("NO TRIE OR WORD");
     return false;
   }
   var letter = word.charAt(0);
   var child = node.children[letter];
   if(child) {
     var remainder = word.substring(1);
-    if(!remainder && child.isWord) {
+    if(child.isWord) {
       return true;
     } else {
       return this.contains(child, remainder);
@@ -106,6 +107,7 @@ function buildTrie(data){
 			trie.add(trie.root,data.userdata[x].toString());
 		}
 // Debug code to list contents of trie.
-	alert(trie.getWords());
+	//alert(trie.getWords());
+	//alert("Does trie contain \"testaidantest\"?" + trie.contains("testaidantest"));
 }
 var trie;
