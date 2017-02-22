@@ -12,7 +12,6 @@ window.onload = function(){
 
 
 function build(data){
-	alert(data.userdata[1]);
-	values = data.userdata;
-	alert("Values: " + values);
+	values = data.userdata.splice(0,4);
+	values.push(data.userdata[data.userdata.length-1]);
 }
