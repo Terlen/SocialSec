@@ -59,6 +59,7 @@ Trie.prototype._getWords = function(node, words, word) {
 // The original trie.contains method described by Ben Vallon is only effective for exact matching. For our project, the matching word may be located inside of a longer string.
 // This meant .contains required modification to search the entirety of a string for a keyword.
 Trie.prototype.contains = function(node, word) {
+	alert(node.data);
   if(!node || !word) {
     return false;
   }
@@ -99,12 +100,12 @@ function trieData(){
 
 // Create trie structure with fetched data from Chrome storage.
 function buildTrie(data){
-	var trie = new Trie();
+	trie = new Trie();
 	for (var x = 0; x < data.userdata.length; x++){
 			var value = (data.userdata[x]);
 			trie.add(trie.root,data.userdata[x].toString());
 		}
 // Debug code to list contents of trie.
 	alert(trie.getWords());
-	alert(trie.contains(trie.root,"garbagebag2017"));
 }
+var trie;
