@@ -1,9 +1,14 @@
 {
 	"manifest_version": 2,
 	
-	"name": "Protoype Build",
-	"description": "This extension is a collection of scripts that demonstrate key functions of our project.",
-	"version": "1.0",
+	"name": "SocialSec",
+	"description": "This is the second functional build of our project.",
+	"version": "0.2",
+	
+	"icons": {
+	  "128": "SS128.png",
+      "16": "SS16.png",
+      "48": "SS48.png"	},
 	
 	"browser_action": {
 		"default_icon" : "icon2.png",
@@ -29,6 +34,8 @@
 	"background": {
 		"scripts": ["wordcompare.js","browserAction.js","GraphAPIGet.js","trie.js"],
 		"persistent": false
-	}
+	},
+	
+	"options_page":"index.html"
 	
 }
