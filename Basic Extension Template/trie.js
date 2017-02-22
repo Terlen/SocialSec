@@ -59,9 +59,9 @@ Trie.prototype._getWords = function(node, words, word) {
 // The original trie.contains method described by Ben Vallon is only effective for exact matching. For our project, the matching word may be located inside of a longer string.
 // This meant .contains required modification to search the entirety of a string for a keyword.
 Trie.prototype.contains = function(node, word) {
-	alert(node.data);
+	//alert(node.data);
   if(!node || !word) {
-	  alert("NO TRIE OR WORD");
+	  //alert("NO TRIE OR WORD");
     return false;
   }
   var letter = word.charAt(0);
@@ -84,7 +84,7 @@ Trie.prototype.contains = function(node, word) {
 		return this.contains(this.root, remainder.substring(1));
 	// The full target string has been searched and there was no hit. This means the target string truely doesn't contain any keywords.
 	}  else{
-		alert("full phrase test");
+		//alert("full phrase test");
 		return false;
 	}
 	
