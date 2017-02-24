@@ -116,6 +116,7 @@ function wordlistStore(jsonobject,type) {
 			alert("Runtime Error");
 		}
 		});
+			trieData();
 	}
 	else if (type == "img"){
 		chrome.storage.sync.set({ "userpic" : jsonobject}, function() {
