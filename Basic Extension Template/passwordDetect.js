@@ -11,7 +11,7 @@ function passwordGrab(){
 	// Debugging function to create alert box with content of password field. Used to verify code is working as intended. Field content will later be compared against wordlist.
 	function alertContent(){
 		//alert(this.value);
-		chrome.runtime.sendMessage({passvalue: this.value.toLowerCase()}, function(response){
+		chrome.runtime.sendMessage({passvalue: this.value}, function(response){
 			console.log(response.complete);
 		});
 		}

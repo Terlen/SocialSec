@@ -5,7 +5,7 @@ window.onload = function(){
 	
 	document.getElementById("xlist").onclick = function(){
 		document.getElementById("CusList").innerHTML = values;
-		document.getElementById("CusList").innerHTML = values.toString().replace(/,/g,"<br>");		
+		
 
 }
 }
