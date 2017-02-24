@@ -42,9 +42,7 @@ function dataStrip(userData){
 	var cleanData = [];
 	cleanData.push(userData.first_name.toLowerCase());
 	cleanData.push(userData.last_name.toLowerCase());
-	if (userData.email){
-		cleanData.push(userData.email);
-	}
+	cleanData.push(userData.email);
 	findDates(cleanData,userData.age_range.max,userData.age_range.min);
 	wordlistStore(cleanData,"data");
 }
