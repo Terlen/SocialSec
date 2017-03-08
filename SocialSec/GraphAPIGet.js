@@ -15,7 +15,7 @@ function httpGetAsync(theUrl, callback, type)
 function getData() {
 	chrome.storage.sync.get("accessToken", function(item) {
 		// GET request to custom GraphAPI endpoint. Utilizes the access token stored in Google Storage
-		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,picture.height(100).width(100),first_name,last_name,age_range,gender,email,work,education,taggable_friends,hometown,favorite_teams&access_token="+item.accessToken, jsonParse, "data");
+		httpGetAsync("https://graph.facebook.com/me?fields=id,cover,first_name,last_name,age_range,gender,email&access_token="+item.accessToken, jsonParse, "data");
 	});
 };
 
@@ -32,15 +32,44 @@ function jsonParse(json,type) {
 		wordlistStore(userData,"img")
 	} 
 	else {
-		wordlistStore(userData,"data");
+		dataStrip(userData);
 	}
 	
-	//dataCleanup(userData);
+	
+}
+// Removes unnecessary data from storage
+function dataStrip(userData){
+	var cleanData = [];
+	cleanData.push(userData.first_name.toLowerCase());
+	cleanData.push(userData.last_name.toLowerCase());
+	if (userData.email){
+		cleanData.push(userData.email);
+	}
+	findDates(cleanData,userData.age_range.max,userData.age_range.min);
+	wordlistStore(cleanData,"data");
 }
 
+function findDates(array,max,min){
+	var date = new Date();
+	var currentYear = date.getFullYear();
+	for (x = 0; x < min+1; x++){
+		array.push(currentYear - x);
+	}
+	if (typeof max != 'undefined'){
+		for (x = min+1; x < max+2; x++){
+		array.push(currentYear -x);
+		}
+	}
+	else{
+		for (x = min; x < 80; x++){
+			array.push(currentYear - x);
+		}
+	}
+	
+}
 // Deletes unnecessary data from JSON to reduce size of object for storage.
 // Quick and dirty code, can be improved later.
-function dataCleanup(bigData) {
+/*function dataCleanup(bigData) {
 	var dataValues = [];
 	for (var x = 0; x < bigData.education.length; x++){
 		dataValues.push(bigData.education[x].school.name);
@@ -78,7 +107,8 @@ function dataCleanup(bigData) {
 		delete bigData.hometown.id;
 	}
 	wordlistStore(bigData);
-}
+}*/
+
 
 // Store JSON object in Google storage to retrieve later
 function wordlistStore(jsonobject,type) {
@@ -88,6 +118,7 @@ function wordlistStore(jsonobject,type) {
 			alert("Runtime Error");
 		}
 		});
+			trieData();
 	}
 	else if (type == "img"){
 		chrome.storage.sync.set({ "userpic" : jsonobject}, function() {
