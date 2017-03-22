@@ -7,7 +7,7 @@
 	<script src="index.js"></script>
 </head>
 <body>
-	<div id="xpage" class="layout">
+		<div id="xpage" class="layout">
 		<div id="xheader" class="layout">
 			<div id="xtop" >&nbsp;</div>
 			<div id="xtopheader" style="height:100px">
@@ -20,11 +20,29 @@
 		<div id="xbody" class="layout">
 			<div id="xmain" class="layout">
 				<h2 style="text-align:center">SocialSec has identified the following phrase as a potential security issue based on your personalized wordlist.</h2>
-				<p id="xphrase"></p>
-				<p id="red" style="color:white;background-color:red">Use this password anyways.<br><em>Not recommended</em></p><br>
-				<p style="color:white;background-color:yellow"> <button id="WLpage">Exclude this website.</button><br>
-				<button id="WLphrase">Exclude this phrase.</button><br></p>
-				<p style="color:white;background-color:green"><button id="green">Let me make this information private.<br><em>Recommended</em></button></p><br>
+				<h2 id="xphrase" style="text-align:center"></h2>
+				<h3>You have a few options reguarding your security:</h3>
+				<div style="color:white;background-color:red">
+					<p id="red">Use this password anyways.<br><em>Not recommended</em>
+					<hr><p>Why is this not recommended?</p>
+					<p>By continuing to use this password you open yourself up to social engineering attacks since SocialSec only checks for information available to the general public.</p>
+				</div>
+				<div style="background-color:yellow">	
+					<p>You can also choose to change this password on the Website's account settings.
+					<hr>
+					<p>You can choose to exlcude this website from SocialSec searches if you are not worried about the security of this password.</p>
+					<button id="WLpage">Exclude this website.</button>
+					<hr>
+					<p>If you are not concerned about the security of the detected phrase, you may exclude it from future SocialSec searches.</p>
+					<button id="WLphrase">Exclude this phrase.</button>
+				</div>
+				<br>
+				<div style="background-color:green;color:white">
+					<button id="green" disabled>Let me make this information private.<br><em>Recommended</em></button>
+					<p>As SocialSec is still in its infancy, the information we use will always be available to the public.
+					<br>This means, for now, your best option is to change the password you have created to something else.
+					<br>In future releases, SocialSec will be using more comprehensive public information that you have posted on social media.</p>
+				</div>
 			</div>
 			
 			<div class="clear">&nbsp;</div>
