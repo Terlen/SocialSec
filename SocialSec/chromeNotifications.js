@@ -19,7 +19,7 @@ chrome.notifications.onClicked.addListener(userSettings)
 //funtion opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
 function userSettings(){
 	
-	var x = window.open("index.html", '_blank');
+	var x = window.open("alert.html", '_blank');
 	x.focus();
 		
 }
