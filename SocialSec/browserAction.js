@@ -1,3 +1,4 @@
+var detectedPhrase;
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
@@ -14,14 +15,16 @@ chrome.runtime.onMessage.addListener(
 			//alert(request.passvalue);
 			if (trie.contains(trie.root, request.passvalue)){
 				//alert("SEND NOTIFICATION");
-				alert(trie.contains(trie.root, request.passvalue));
+				detectedPhrase = trie.contains(trie.root, request.passvalue);
 				
 				notifications(request, sender, sendResponse);
 				return true;
 			}
 		}
+		else if (request.phrase){
+			sendResponse({response: detectedPhrase});
+		}
   });
-  
 
 
 //funtion opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
