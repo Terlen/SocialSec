@@ -72,9 +72,12 @@ Trie.prototype.contains = function(node, word) {
     var remainder = word.substring(1);
     if(child.isWord) {
 		fullWord+=child.data.toString();
-      return fullWord;
+		var finalWord = fullWord;
+		fullWord="";
+      return finalWord;
     } else {
 		fullWord+=child.data.toString();
+		
       return this.contains(child, remainder);
     }
 // The original .contains method simply terminates the search if there a node has no children containing the target letter.
