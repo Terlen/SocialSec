@@ -1,4 +1,4 @@
-// Reference material, not working script.
+/* // Reference material, not working script.
 
 // This variable is required to create a notification. It can be customized before the notification is created by setting options.message = "Some string"
 var options = {
@@ -27,3 +27,4 @@ function userSettings(){
 //This will change the icon file in the manifest and then change the icon on the browser
 chrome.browserAction.setIcon({path:"icon2.png"});
 chrome.browserAction.setPopup({popup:"popup2.html"});
+ */

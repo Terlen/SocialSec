@@ -1,4 +1,5 @@
 var detectedPhrase;
+var listenerExists;
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
@@ -18,6 +19,7 @@ chrome.runtime.onMessage.addListener(
 				detectedPhrase = trie.contains(trie.root, request.passvalue);
 				
 				notifications(request, sender, sendResponse);
+				notificationPage();
 				return true;
 			}
 		}
@@ -44,6 +46,11 @@ function notifications(request, sender, sendResponse){
 	};
 			options.message = "The detected password contains personal information!";
 			chrome.notifications.create(options);
-			chrome.notifications.onClicked.addListener(userSettings);
 			sendResponse({complete: "done"});
+}
+function notificationPage(){
+	if (listenerExists != 1){
+		chrome.notifications.onClicked.addListener(userSettings);
+		listenerExists = 1;
+	}
 }
