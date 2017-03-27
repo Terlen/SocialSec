@@ -1,3 +1,6 @@
-chrome.runtime.sendMessage({phrase: "Giff phrase"}, function(response){
-			document.getElementById("xphrase").innerHTML = response.detectedPhrase;
+window.onload = function(){
+	chrome.runtime.sendMessage({phrase: "Giff phrase"}, function(response){
+			alert("Response Received");
+			document.getElementById("xphrase").innerHTML = response.phrase;
 		});
+}

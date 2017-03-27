@@ -24,7 +24,8 @@ chrome.runtime.onMessage.addListener(
 			}
 		}
 		else if (request.phrase){
-			sendResponse({response: detectedPhrase});
+			alert("Phrase: "+detectedPhrase)
+			sendResponse({phrase: detectedPhrase});
 		}
   });
 
