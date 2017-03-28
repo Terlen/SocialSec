@@ -5,7 +5,6 @@ window.onload = function(){
 	
 	document.getElementById("xshow").onclick = function(){
 		if (document.getElementById("CusList").style.display == "none"){
-			document.getElementById("CusList").innerHTML = values;
 			document.getElementById("CusList").innerHTML = values.toString().replace(/,/g,"<br>");
 			document.getElementById("CusList").style.display = "block";
 		}else{
