@@ -74,7 +74,6 @@ Trie.prototype.contains = function(node, word) {
 		fullWord+=child.data.toString();
 		var finalWord = fullWord;
 		fullWord="";
-		alert(finalWord);
       return finalWord;
     } else {
 		fullWord+=child.data.toString();
