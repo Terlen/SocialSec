@@ -1,3 +1,6 @@
+
+var detectedPhrase;
+
 // Defines a flag that is used to determine if the SocialSec notification already has a listener added.
 var listenerExists;
 // Add a listener to the event page that waits for a message from content scripts.
@@ -19,18 +22,23 @@ chrome.runtime.onMessage.addListener(
 	} else if (request.passvalue != undefined){
 			// Check if password data is stored in the trie
 			if (trie.contains(trie.root, request.passvalue)){
+				//alert("SEND NOTIFICATION");
+				detectedPhrase = trie.contains(trie.root, request.passvalue);
 				// If data is found in trie, create a notification alerting the user.
 				notifications(request, sender, sendResponse);
 				notificationPage();
 				return true;
 			}
 		}
+		else if (request.phrase){
+			sendResponse({phrase: detectedPhrase});
+		}
   });
 
 // Function opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
 function userSettings(){
 	
-	var x = window.open("index.html", '_blank');
+	var x = window.open("alert.html", '_blank');
 	x.focus();
 }
 // Function that defines the Chrome notification.

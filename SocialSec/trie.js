@@ -58,7 +58,9 @@ Trie.prototype._getWords = function(node, words, word) {
 // Trie method for searching the structure for a particular word.
 // The original trie.contains method described by Ben Vallon is only effective for exact matching. For our project, the matching word may be located inside of a longer string.
 // This meant .contains required modification to search the entirety of a string for a keyword.
+var fullWord ="";
 Trie.prototype.contains = function(node, word) {
+	
 	//alert(node.data);
   if(!node || !word) {
 	  //alert("NO TRIE OR WORD");
@@ -69,8 +71,13 @@ Trie.prototype.contains = function(node, word) {
   if(child) {
     var remainder = word.substring(1);
     if(child.isWord) {
-      return true;
+		fullWord+=child.data.toString();
+		var finalWord = fullWord;
+		fullWord="";
+      return finalWord;
     } else {
+		fullWord+=child.data.toString();
+		
       return this.contains(child, remainder);
     }
 // The original .contains method simply terminates the search if there a node has no children containing the target letter.
@@ -78,6 +85,7 @@ Trie.prototype.contains = function(node, word) {
   } else {
 	// If there is no branch off root with the current letter, move to the next letter of the target string.
 	if (!remainder){
+		fullWord="";
 		return this.contains(this.root, word.substring(1));
 	// If there is no branch off the current node with the current letter but the target string has not been fully searched, restart the search at root from the current location in the target string.
 	}  else if (remainder.substring(1).length > 0){
