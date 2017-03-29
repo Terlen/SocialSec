@@ -25,10 +25,87 @@ Trie.prototype.add = function(node, word) {
 // Important to note that although children was originally declared as an empty array, by using a named index and not a numerical, Javascript automatically converts to an object.
   var child = node.children[letter];
   if(!child) {
-    child = new Node(letter);
-    node.children[letter] = child;
+	    if (letter.match(/^(a|b|c|e|g|i|l|o|s|t)$/)){
+			switch (letter){
+				case 'a':
+					child = new Node('a');
+					node.children['a'] = child;
+					child = new Node('@');
+					node.children['@'] = child;
+					child = new Node('4');
+					node.children['4'] = child;
+					break;
+				case 'b':
+					child = new Node('b');
+					node.children['b'] = child;
+					child = new Node('6');
+					node.children['6'] = child;
+					break;
+				case 'c':
+					child = new Node('c');
+					node.children['c'] = child;
+					child = new Node('(');
+					node.children['('] = child;
+					break;
+				case 'e':
+					child = new Node('e');
+					node.children['e'] = child;
+					child = new Node('3');
+					node.children['3'] = child;
+					break;
+				case 'g':
+					child = new Node('g');
+					node.children['g'] = child;
+					child = new Node('9');
+					node.children['9'] = child;
+					break;
+				case 'i':
+					child = new Node('i');
+					node.children['i'] = child;
+					child = new Node('1');
+					node.children['1'] = child;
+					child = new Node('!');
+					node.children['!'] = child;
+					break;
+				case 'l':
+					child = new Node('l');
+					node.children['l'] = child;
+					child = new Node('1');
+					node.children['1'] = child;
+					child = new Node('!');
+					node.children['!'] = child;
+					break;
+				case 'o':
+					child = new Node('o');
+					node.children['o'] = child;
+					child = new Node('0');
+					node.children['0'] = child;
+					break;
+				case 's':
+					child = new Node('s');
+					node.children['s'] = child;
+					child = new Node('5');
+					node.children['5'] = child;
+					break;
+				case 't':
+					child = new Node('t');
+					node.children['t'] = child;
+					child = new Node('+');
+					node.children['+'] = child;
+					child = new Node('7');
+					node.children['7'] = child;
+					break;
+				default:
+					alert('No data matched. You should not be seeing this.')
+			}
+		}else{
+			child = new Node(letter);
+			node.children[letter] = child;
+		}
   }
 // Determine how many characters are left in word to be added. If none, set isWord flag to true and complete. Else, recursively call add with new child node and rest of word.
+
+//For loop needed for each created Node
   var remainder = word.substring(1);
   if(!remainder) {
     child.isWord = true;
