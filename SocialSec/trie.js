@@ -74,6 +74,7 @@ Trie.prototype.contains = function(node, word) {
 		fullWord+=child.data.toString();
 		var finalWord = fullWord;
 		fullWord="";
+		alert(finalWord);
       return finalWord;
     } else {
 		fullWord+=child.data.toString();
@@ -85,6 +86,7 @@ Trie.prototype.contains = function(node, word) {
   } else {
 	// If there is no branch off root with the current letter, move to the next letter of the target string.
 	if (!remainder){
+		fullWord="";
 		return this.contains(this.root, word.substring(1));
 	// If there is no branch off the current node with the current letter but the target string has not been fully searched, restart the search at root from the current location in the target string.
 	}  else if (remainder.substring(1).length > 0){
