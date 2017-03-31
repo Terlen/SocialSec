@@ -19,4 +19,19 @@ function passwordGrab(){
 		}
 	}
 passwordGrab();
-
+dataLoad();
+function dataLoad(){
+	chrome.storage.sync.get("userdata", function(item){
+		if (item.userdata){
+		chrome.runtime.sendMessage({greeting: "secure"}, function(response){
+			console.log(response.complete);
+		});
+	}
+	else{
+		chrome.runtime.sendMessage({greeting: "insecure"}, function(response){
+			console.log(response.complete);
+		});
+	}
+	
+	});
+}

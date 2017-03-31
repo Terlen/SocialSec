@@ -3,7 +3,7 @@
 var token = document.location.toString();
 // The URL fetched from the Facebook login page is parsed and the access token is extracted
 token = token.substring(token.indexOf('=')+1, token.indexOf('&'));
-chrome.runtime.sendMessage({greeting:"secure"}, function(response){
+chrome.runtime.sendMessage({greeting:"loginsecure"}, function(response){
 			console.log(response.complete);
 		});
 
