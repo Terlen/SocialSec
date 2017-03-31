@@ -33,13 +33,15 @@ chrome.runtime.onMessage.addListener(
 		else if (request.phrase){
 			sendResponse({phrase: detectedPhrase});
 		}
-		else if (request.greeting == "insecure"){
+		/* else if (request.greeting == "insecure"){
 			chrome.browserAction.setIcon({path : "icon2.png"});
 			chrome.browserAction.setPopup({popup : "popup.html"});
 			sendResponse({complete: "done"});
-		}
+		} */
 		else if (request.greeting == "secure"){
 			trieData();
+			chrome.browserAction.setIcon({path : "icon.png"});
+			chrome.browserAction.setPopup({popup : "popup2.html"});
 			sendResponse({complete: "done"});
 		}
   });
