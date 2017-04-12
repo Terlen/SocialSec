@@ -3,7 +3,7 @@
 	
 	"name": "SocialSec",
 	"description": "This is the second functional build of our project.",
-	"version": "0.2",
+	"version": "0.2.0",
 	
 	"icons": {
 	  "128": "SS128.png",
