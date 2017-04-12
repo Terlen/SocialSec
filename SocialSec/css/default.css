@@ -38,7 +38,6 @@ h1, h2, h3 {font-weight: normal; font-family: impact, "trebuchet ms", verdana, f
 #xtopheader ul li a:hover, a.active {color: #fff; background: url('../img/b-whitebullet.png') no-repeat 0px 6px}
 
 #xmain {cursor: default;}
-#CusList{width:750px}
 button{border-radius: 5px; border: 1; font-family: Tahoma; font-size:18px; background: #f4f4f4; padding:2px; top:-15px; margin:5px}
 	p{margin-left: 5px}
 	
