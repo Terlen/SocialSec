@@ -30,70 +30,94 @@ Trie.prototype.add = function(node, word) {
 				case 'a':
 					child = new Node('a');
 					node.children['a'] = child;
+					this.addRecursive(child, word);
 					child = new Node('@');
 					node.children['@'] = child;
+					this.addRecursive(child, word);
 					child = new Node('4');
 					node.children['4'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'b':
 					child = new Node('b');
 					node.children['b'] = child;
+					this.addRecursive(child, word);
 					child = new Node('6');
 					node.children['6'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'c':
 					child = new Node('c');
 					node.children['c'] = child;
+					this.addRecursive(child, word);
 					child = new Node('(');
 					node.children['('] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'e':
 					child = new Node('e');
 					node.children['e'] = child;
+					this.addRecursive(child, word);
 					child = new Node('3');
 					node.children['3'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'g':
 					child = new Node('g');
 					node.children['g'] = child;
+					this.addRecursive(child, word);
 					child = new Node('9');
 					node.children['9'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'i':
 					child = new Node('i');
 					node.children['i'] = child;
+					this.addRecursive(child, word);
 					child = new Node('1');
 					node.children['1'] = child;
+					this.addRecursive(child, word);
 					child = new Node('!');
 					node.children['!'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'l':
 					child = new Node('l');
 					node.children['l'] = child;
+					this.addRecursive(child, word);
 					child = new Node('1');
 					node.children['1'] = child;
+					this.addRecursive(child, word);
 					child = new Node('!');
 					node.children['!'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 'o':
 					child = new Node('o');
 					node.children['o'] = child;
+					this.addRecursive(child, word);
 					child = new Node('0');
 					node.children['0'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 's':
 					child = new Node('s');
 					node.children['s'] = child;
+					this.addRecursive(child, word);
 					child = new Node('5');
 					node.children['5'] = child;
+					this.addRecursive(child, word);
 					break;
 				case 't':
 					child = new Node('t');
 					node.children['t'] = child;
+					this.addRecursive(child, word);
 					child = new Node('+');
 					node.children['+'] = child;
+					this.addRecursive(child, word);
 					child = new Node('7');
 					node.children['7'] = child;
+					this.addRecursive(child, word);
 					break;
 				default:
 					alert('No data matched. You should not be seeing this.')
@@ -103,15 +127,18 @@ Trie.prototype.add = function(node, word) {
 			node.children[letter] = child;
 		}
   }
+this.addRecursive(child, word);
+ };
 // Determine how many characters are left in word to be added. If none, set isWord flag to true and complete. Else, recursively call add with new child node and rest of word.
 
 //For loop needed for each created Node
+Trie.prototype.addRecursive = function(child, word){
   var remainder = word.substring(1);
   if(!remainder) {
     child.isWord = true;
   }
   this.add(child, remainder);
-};
+}
 
 // Debug function to list all words stored in the trie.
 Trie.prototype.getWords = function() {
