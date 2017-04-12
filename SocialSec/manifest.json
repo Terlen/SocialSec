@@ -1,0 +1,41 @@
+{
+	"manifest_version": 2,
+	
+	"name": "SocialSec",
+	"description": "This is the second functional build of our project.",
+	"version": "0.2.0",
+	
+	"icons": {
+	  "128": "SS128.png",
+      "16": "SS16.png",
+      "48": "SS48.png"	},
+	
+	"browser_action": {
+		"default_icon" : "icon2.png",
+		"default_popup": "popup.html",
+		"default_title": "Click for more info!"
+	},
+	"permissions": ["activeTab",
+	"tabs", "storage", "notifications"],
+	
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["passwordDetect.js"],
+			"all_frames": true
+			},
+
+		{
+			"matches": ["https://www.facebook.com/connect/*"],
+			"js": ["grabAccessToken.js"]
+		}
+	],
+	
+	"background": {
+		"scripts": ["wordcompare.js","browserAction.js","GraphAPIGet.js","trie.js"],
+		"persistent": false
+	},
+	
+	"options_page":"index.html"
+	
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SocialSec | User Options</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="css/default.css" type="text/css" media="screen" />
+	<script src="index.js"></script>
+	<script src="alertPhrase.js"></script>
+</head>
+<body>
+		<div id="xpage" class="layout">
+		<div id="xheader" class="layout">
+			<div id="xtop" >&nbsp;</div>
+			<div id="xtopheader" style="height:100px">
+				<div style="width:190px">
+					<img src='SocialSec_Logo.png' style="width:100%"></img>
+					<em>Be social. Securely.</em>
+				</div>
+			</div>
+		</div>
+		<div id="xbody" class="layout">
+			<div id="xmain" class="layout">
+				<h2 style="text-align:center">SocialSec has identified the following phrase as a potential security issue based on your personalized wordlist.</h2>
+				<h2 id="xphrase" style="text-align:center"></h2>
+				<h3>You have a few options reguarding your security:</h3>
+				<div style="color:white;background-color:red">
+					<p id="red">Use this password anyways.<br><em>Not recommended</em>
+					<hr><p>Why is this not recommended?</p>
+					<p>By continuing to use this password you open yourself up to social engineering attacks since SocialSec only checks for information available to the general public.</p>
+				</div>
+				<div style="background-color:yellow">	
+					<p>You can also choose to change this password on the Website's account settings.
+					<hr>
+					<p>You can choose to exlcude this website from SocialSec searches if you are not worried about the security of this password.</p>
+					<button id="WLpage">Exclude this website.</button>
+					<hr>
+					<p>If you are not concerned about the security of the detected phrase, you may exclude it from future SocialSec searches.</p>
+					<button id="WLphrase">Exclude this phrase.</button>
+				</div>
+				<br>
+				<div style="background-color:green;color:white">
+					<button id="green" disabled>Let me make this information private.<br><em>Recommended</em></button>
+					<p>As SocialSec is still in its infancy, the information we use will always be available to the public.
+					<br>This means, for now, your best option is to change the password you have created to something else.
+					<br>In future releases, SocialSec will be using more comprehensive public information that you have posted on social media.</p>
+				</div>
+			</div>
+			
+			<div class="clear">&nbsp;</div>
+		</div>		
+		<div id="xfooter" class="layout">
+            <div>
+			</div>
+            <strong class="blue">&copy; 2017 SocialSec </strong>
+			<br />
+			<a class="tooltip" href="#">Contact
+				<span class="tooltiptext">
+				Please feel free to contact us with any questions or issues at:<br>
+				SocialSecExtension@gmail.com
+				</span>
+			</a> | 
+			<a class="tooltip" href="#">Donate
+			<span class="tooltiptext">
+				<b>THANK YOU!</b><br>
+				But we are not setup to accept donations at this time.
+				</span>
+			
+			</a>		
+		</div>
+	</div>
+</body>
+</html>
