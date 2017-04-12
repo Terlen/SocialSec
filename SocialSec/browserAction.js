@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener(
     console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
                 "from the extension");
-    if (request.greeting == "secure"){
+    if (request.greeting == "loginsecure"){
 		sendResponse({farewell: "goodbye"});
 		// Use token to fetch GraphAPI data on user
 		getPicture();
@@ -32,6 +32,17 @@ chrome.runtime.onMessage.addListener(
 		}
 		else if (request.phrase){
 			sendResponse({phrase: detectedPhrase});
+		}
+		/* else if (request.greeting == "insecure"){
+			chrome.browserAction.setIcon({path : "icon2.png"});
+			chrome.browserAction.setPopup({popup : "popup.html"});
+			sendResponse({complete: "done"});
+		} */
+		else if (request.greeting == "secure"){
+			trieData();
+			chrome.browserAction.setIcon({path : "icon.png"});
+			chrome.browserAction.setPopup({popup : "popup2.html"});
+			sendResponse({complete: "done"});
 		}
   });
 
