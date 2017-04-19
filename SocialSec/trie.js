@@ -127,6 +127,7 @@ Trie.prototype.add = function(node, word) {
 			node.children[letter] = child;
 		}
   }
+
 this.addRecursive(child, word);
  };
 // Determine how many characters are left in word to be added. If none, set isWord flag to true and complete. Else, recursively call add with new child node and rest of word.
@@ -203,9 +204,103 @@ Trie.prototype.contains = function(node, word) {
   }
 };
 
+Trie.prototype.remove = function(word){
+	if(!this.root){
+		alert("NO ROOT");
+		return;
+	}
+	if(this.contains(this.root,word)){
+		this._removeNode(this.root, word);
+	}
+};
 
+Trie.prototype._removeNode = function(node, word){
+	if(!node || !word){
+		alert("NO ROOT OR WORD");
+		return;
+	}
+	node.prefixes--;
+	var letter = word.charAt(0);
+	var child = node.children[letter];
+	if(child){
+		if (letter.match(/^(a|b|c|e|g|i|l|o|s|t)$/)){
+			switch(letter){
+				case 'a':
+					letter = 'a';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '@';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '4';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 'i':
+					letter = 'i';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '1';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '!';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				default:
+					alert("DEFAULT CASE");
+			}
+		
+		} else{
+		var remainder = word.substring(1);
+		if(remainder){
+			if(child.prefixes === 1){
+				delete node.children[letter];
+			} else{
+				this._removeNode(child, remainder);
+			}
+		} else{
+			if(child.prefixes === 0){
+				delete node.children[letter];
+			} else{
+				child.isWord = false;
+			}
+		}
+		}
+	}
+};
 
-
+Trie.prototype.recursiveRemove = function(letter, word, node, child){
+	var remainder = word.substring(1);
+	if(remainder){
+		if(child.prefixes === 1){
+			delete node.children[letter];
+		} else{
+			this._removeNode(child, remainder);
+		}
+	} else{
+		if(child.prefixes === 0){
+			delete node.children[letter];
+		} else{
+			child.isWord = false;
+		}
+	}
+}
+Trie.prototype.printByLevel = function() {
+  if(!this.root) {
+    return console.log('No root node found');
+  }
+  var newline = new Node('\n');
+  var queue = [this.root, newline];
+  var string = '';
+  while(queue.length) {
+    var node = queue.shift();
+    string += node.data.toString() + (node.data !== '\n' ? ' ' : '');
+    if(node === newline && queue.length) {
+      queue.push(newline);
+    }
+    for(var child in node.children) {
+      if(node.children.hasOwnProperty(child)) {
+        queue.push(node.children[child]);
+      }
+    }
+  }
+  console.log(string.trim());
+};
 // Fetch stored data in Chrome storage. Once completed, call buildTrie and pass retrieved data.
 function trieData(){
 	chrome.storage.sync.get("userdata", buildTrie);
