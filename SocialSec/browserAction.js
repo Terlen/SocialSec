@@ -2,65 +2,74 @@ var detectedPhrase;
 var trie;
 // Defines a flag that is used to determine if the SocialSec notification already has a listener added.
 var listenerExists;
+
 // Add a listener to the event page that waits for a message from content scripts.
-// If message greeting contains "secure", Facebook login has successfully acquired a login token.
-// If message passvalue contains any string, a password has been entered.
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
                 "from the extension");
+	// If received message has a greeting of loginsecure, then Facebook login has complete successfully.
     if (request.greeting == "loginsecure"){
 		sendResponse({farewell: "goodbye"});
-		// Use token to fetch GraphAPI data on user
+		// Use access token to fetch GraphAPI data on user and their Facebook profile image.
 		getPicture();
 		getData();
 		// Change extension popup and icon to reflect that the user is protected.
 		chrome.browserAction.setIcon({path : "icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
-	} else if (request.passvalue != undefined){
-			// Check if password data is stored in the trie
-			if (trie.contains(trie.root, request.passvalue)){
-				//alert("SEND NOTIFICATION");
-				detectedPhrase = trie.contains(trie.root, request.passvalue);
-				// If data is found in trie, create a notification alerting the user.
-				notifications(request, sender, sendResponse);
-				notificationPage();
-				return true;
+	}
+	
+	// If received message has a non-undefined passvalue, then the password detect script has fetched a password to test.
+	else if (request.passvalue != undefined){
+		// Check if password data is stored in the trie
+		if (trie.contains(trie.root, request.passvalue)){
+			detectedPhrase = trie.contains(trie.root, request.passvalue);
+			// If data is found in trie, spawn a notification alerting the user.
+			notifications(request, sender, sendResponse);
+			notificationPage();
+			return true;
+		}
+	}
+	
+	// If received message requests a phrase, return the last phrase detected by password detect.
+	else if (request.phrase){
+		sendResponse({phrase: detectedPhrase});
+	}
+	
+	// If received message greeting is secure, build the trie using stored data and change icons to indicate that extension is operating.
+	else if (request.greeting == "secure"){
+		trieData();
+		chrome.browserAction.setIcon({path : "icon.png"});
+		chrome.browserAction.setPopup({popup : "popup2.html"});
+		sendResponse({complete: "done"});
+	}
+	
+	// If received message contains a command, remove the command word from the trie and add it to the phrase whitelist.
+	else if (request.command){
+		trie.remove(request.command);
+		chrome.storage.sync.get("phraseWhitelist", function(item){
+			// If the whitelist doesn't exist, create a new one with the command word.
+			if(!item.phraseWhitelist){
+				var whitelist = request.command;
+				chrome.storage.sync.set({"phraseWhitelist": whitelist});
 			}
-		}
-		else if (request.phrase){
-			sendResponse({phrase: detectedPhrase});
-		}
-		/* else if (request.greeting == "insecure"){
-			chrome.browserAction.setIcon({path : "icon2.png"});
-			chrome.browserAction.setPopup({popup : "popup.html"});
-			sendResponse({complete: "done"});
-		} */
-		else if (request.greeting == "secure"){
-			trieData();
-			chrome.browserAction.setIcon({path : "icon.png"});
-			chrome.browserAction.setPopup({popup : "popup2.html"});
-			sendResponse({complete: "done"});
-		}
-		else if (request.command){
-			trie.remove(request.command);
-			chrome.storage.sync.get("phraseWhitelist", function(item){
-				if(!item.phraseWhitelist){
-					var whitelist = request.command;
-					chrome.storage.sync.set({"phraseWhitelist": whitelist});
-				}else{
+			// If the whitelist already exists, add the new word to it and update the stored copy.
+			else{
 				var whitelist = [item.phraseWhitelist];
 				whitelist.push(request.command);
 				chrome.storage.sync.set({"phraseWhitelist": whitelist});
 				}
-			});
-			sendResponse({feedback: "Good work"});
-		}
-		else if (request.clear){
-			trieData();
-		}
-  });
+		});
+		sendResponse({feedback: "Good work"});
+	}
+	
+	// If received message sends clear, then rebuild the trie from stored data to restore previously whitelisted phrases.
+	else if (request.clear){
+		trieData();
+	}
+  }
+);
 
 // Function opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
 function userSettings(){
@@ -68,19 +77,20 @@ function userSettings(){
 	var x = window.open("alert.html", '_blank');
 	x.focus();
 }
+
 // Function that defines the Chrome notification.
 function notifications(request, sender, sendResponse){
 	var options = {
-				type:"basic",
-				title:"SocialSec",
-				message:"",
-				iconUrl:"SS.png",
+		type:"basic",
+		title:"SocialSec",
+		message:"",
+		iconUrl:"SS.png",
 	};
-		//alert("running");
-			options.message = "The detected password contains personal information!";
-			chrome.notifications.create(options);
-			sendResponse({complete: "done"});
+	options.message = "The detected password contains personal information!";
+	chrome.notifications.create(options);
+	sendResponse({complete: "done"});
 }
+
 // Function that adds a listener to the created notification that opens a new tab with a SocialSec page. If a listener already exists, don't add another listener.
 function notificationPage(){
 	if (listenerExists != 1){
