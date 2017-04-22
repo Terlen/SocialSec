@@ -1,4 +1,3 @@
-
 var detectedPhrase;
 
 // Defines a flag that is used to determine if the SocialSec notification already has a listener added.

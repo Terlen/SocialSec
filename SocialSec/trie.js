@@ -349,15 +349,27 @@ Trie.prototype.printByLevel = function() {
 };
 // Fetch stored data in Chrome storage. Once completed, call buildTrie and pass retrieved data.
 function trieData(){
-	chrome.storage.sync.get("userdata", buildTrie);
+	chrome.storage.sync.get("phraseWhitelist", function(data){
+		if (!data.phraseWhitelist){
+			chrome.storage.sync.get("userdata", buildTrie);
+		}else{
+			chrome.storage.sync.get("userdata", function(item){
+				var trieData = item.userdata.filter(function(val){
+					return data.phraseWhitelist.indexOf(val) == -1;
+				});
+				buildTrie(trieData);
+			});
+		}
+	});
+	
 }
 
 // Create trie structure with fetched data from Chrome storage.
 function buildTrie(data){
 	trie = new Trie();
-	for (var x = 0; x < data.userdata.length; x++){
-			var value = (data.userdata[x]);
-			trie.add(trie.root,data.userdata[x].toString());
+	for (var x = 0; x < data.length; x++){
+			var value = (data[x]);
+			trie.add(trie.root,data[x].toString());
 		}
 // Debug code to list contents of trie.
 	//alert(trie.getWords());
