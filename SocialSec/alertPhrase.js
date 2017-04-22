@@ -7,7 +7,7 @@ window.onload = function(){
 		document.getElementById("WLpage").onclick = function(){
 		chrome.storage.local.get("currentURL",function(item){
 			Surl = JSON.stringify(item.currentURL);
-			chrome.storage.local.clear;
+			chrome.storage.local.clear();
 		chrome.storage.sync.get(function(cfg) {
 		if(typeof(cfg["whitepage"]) !== 'undefined' && cfg["whitepage"] instanceof Array) { 
 		cfg["whitepage"].push(Surl);
@@ -19,7 +19,8 @@ window.onload = function(){
 		});
 		
 		};
-			document.getElementById("WLphrase").onclick = function(){
+		
+		document.getElementById("WLphrase").onclick = function(){
 		var phrase = document.getElementById("xphrase").innerHTML;
 		chrome.runtime.sendMessage({command: phrase}, function(response){
 			console.log(response.feedback);

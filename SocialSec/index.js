@@ -1,8 +1,10 @@
 var values;
 var phrases;
 window.onload = function(){
-	chrome.storage.sync.get("userdata",build);
+	chrome.storage.sync.get("userdata", build);
 	chrome.storage.sync.get("phraseWhitelist", phraseDisplay);
+	chrome.storage.sync.get("whitepage", pageDisplay);
+
 	
 	document.getElementById("xshow").onclick = function(){
 		if (document.getElementById("CusList").style.display == "none"){
@@ -17,7 +19,6 @@ window.onload = function(){
 		document.getElementById("xshow").style.display = "none";
 		document.getElementById("xhide").style.display = "inline";
 
-		
 	}
 	
 	document.getElementById("xhide").onclick = function(){
@@ -26,6 +27,27 @@ window.onload = function(){
 		document.getElementById("xshow").style.display = "inline";
 		document.getElementById("xhide").style.display = "none";
 	}
+	
+		document.getElementById("page_show").onclick= function(){
+		if (document.getElementById("WLpages").style.display == "none"){
+			if (Array.isArray(pages)){
+				document.getElementById("WLpages").innerHTML = pages.toString().replace(/,/g,"<br>");
+			}else{
+				document.getElementById("WLpages").innerHTML = pages;
+			}
+			document.getElementById("WLpages").style.display = "block";
+		}else{
+			document.getElementById("WLpages").style.display = "block";
+		}
+		document.getElementById("page_show").style.display = "none";
+		document.getElementById("page_hide").style.display = "inline";
+		}
+		
+		document.getElementById("page_hide").onclick = function(){
+		document.getElementById("WLpages").style.display = "none"
+		document.getElementById("page_show").style.display = "inline";
+		document.getElementById("page_hide").style.display = "none";
+		}
 	
 	document.getElementById("pshow").onclick= function(){
 		if (document.getElementById("phraseList").style.display == "none"){
@@ -56,6 +78,14 @@ window.onload = function(){
 			location.reload();
 		}
 	}
+	document.getElementById("clearPages").onclick = function(){
+		var result = confirm("This will delete your custom whitelist, are you sure this is what you want?");
+		if (result){
+			chrome.storage.sync.remove("whitepage")
+			chrome.runtime.sendMessage({clear: "clear"});
+			location.reload();
+		}
+
 }
 function build(data){
 	values = data.userdata.splice(0,4);
@@ -73,4 +103,17 @@ function phraseDisplay(whitelist){
 		phrases = "No custom whitelist!";
 	}
 	
+}
+function pageDisplay(WLPages){
+	if (WLPages.whitepage){
+		if (Array.isArray(WLPages.whitepage)){
+			pages = WLPages.whitepage.splice(0,WLPages.whitepage.length);
+		}else{
+			pages = WLPages.whitepage;
+		}
+	}else{
+		pages = "No custom whitelist!";
+	}
+	
+	}
 }
