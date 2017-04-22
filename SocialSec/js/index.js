@@ -113,21 +113,21 @@ window.onload = function(){
 				phrases = whitelist.phraseWhitelist;
 			}
 		}
-	}else{
-		phrases = "No whitelisted phrases!";
+		else{
+			phrases = "No whitelisted phrases!";
+		}
 	}
-	
-}
 
 // Function to populate whitelisted page list with storage whitelist.
-function pageDisplay(WLPages){
-	if (WLPages.whitepage){
-		if (Array.isArray(WLPages.whitepage)){
-			pages = WLPages.whitepage.splice(0,WLPages.whitepage.length);
+	function pageDisplay(WLPages){
+		if (WLPages.whitepage){
+			if (Array.isArray(WLPages.whitepage)){
+				pages = WLPages.whitepage.splice(0,WLPages.whitepage.length);
+			}else{
+				pages = WLPages.whitepage;
+			}
 		}else{
-			pages = WLPages.whitepage;
+			pages = "No whitelisted pages!";
 		}
-	}else{
-		pages = "No whitelisted pages!";
 	}
 }

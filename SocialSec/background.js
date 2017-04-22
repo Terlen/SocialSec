@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(
 		getPicture();
 		getData();
 		// Change extension popup and icon to reflect that the user is protected.
-		chrome.browserAction.setIcon({path : "icon.png"});
+		chrome.browserAction.setIcon({path : "img/icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
 	}
 	
@@ -44,7 +44,7 @@ chrome.runtime.onMessage.addListener(
 	// If received message greeting is secure, build the trie using stored data and change icons to indicate that extension is operating.
 	else if (request.greeting == "secure"){
 		trieData();
-		chrome.browserAction.setIcon({path : "icon.png"});
+		chrome.browserAction.setIcon({path : "img/icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
 		sendResponse({complete: "done"});
 	}
@@ -91,7 +91,7 @@ function notifications(request, sender, sendResponse){
 		type:"basic",
 		title:"SocialSec",
 		message:"",
-		iconUrl:"SS.png",
+		iconUrl:"img/SS.png",
 	};
 	options.message = "The detected password contains personal information!";
 	chrome.notifications.create(options);
