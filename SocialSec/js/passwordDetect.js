@@ -6,7 +6,6 @@ chrome.storage.sync.get("whitepage",function(item){
 	{console.log("Page has been whitelisted.")}
 	else{
 		passwordGrab();
-		dataLoad();
 	};
 	//window.location.href.localeCompare(item.whitepage[0].replace(/['"]+/g, '')));
 });
@@ -29,7 +28,7 @@ function passwordGrab(){
 		});
 		}
 	}
-
+dataLoad();
 function dataLoad(){
 	chrome.storage.sync.get("userdata", function(item){
 		if (item.userdata){

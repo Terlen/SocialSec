@@ -100,7 +100,7 @@ function phraseDisplay(whitelist){
 			phrases = whitelist.phraseWhitelist;
 		}
 	}else{
-		phrases = "No custom whitelist!";
+		phrases = "No whitelisted phrases!";
 	}
 	
 }
@@ -112,7 +112,7 @@ function pageDisplay(WLPages){
 			pages = WLPages.whitepage;
 		}
 	}else{
-		pages = "No custom whitelist!";
+		pages = "No whitelisted pages!";
 	}
 	
 	}

@@ -1,8 +1,8 @@
 <!doctype html>
 <!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
+ This page is shown when the extension button is clicked AFTER the user has been 
+ secured and the icon turns green. This happens as a result of changing the
+ manifest.json within the "browser_action" field.
  -->
 <html>
   <head>
@@ -28,11 +28,11 @@
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
 
-	<script src="roundedimage.js"></script>
+	<script src="js/roundedimage.js"></script>
   </head>
   <body>
     <div id="demo">
-	<img src="SocialSec_Logo.png" style="width:150px"></img>
+	<img src="img/SocialSec_Logo.png" style="width:150px"></img>
 	<h2 style="text-align:center;margin-top:0px;margin-bottom:10px"> Login Successful!</h2>
 	<img id="profile" src="placeholder.jpg" style="border-radius: 50%;display: block; margin-left: auto; margin-right: auto"/>
 	<hr>
