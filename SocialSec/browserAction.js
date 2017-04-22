@@ -45,6 +45,7 @@ chrome.runtime.onMessage.addListener(
 			sendResponse({complete: "done"});
 		}
 		else if (request.command){
+			alert("REMOVE"+request.command);
 			trie.remove(request.command);
 			sendResponse({feedback: "Good work"});
 		}

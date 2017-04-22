@@ -1,6 +1,5 @@
 var values;
 window.onload = function(){
-	
 	chrome.storage.sync.get("userdata",build);
 	
 	document.getElementById("xshow").onclick = function(){
@@ -20,14 +19,6 @@ window.onload = function(){
 		document.getElementById("CusList").style.display = "none"
 		document.getElementById("xshow").style.display = "inline";
 		document.getElementById("xhide").style.display = "none";
-	}
-	
-	document.getElementById("WLphrase").onclick = function(){
-		var phrase = document.getElementById("xphrase").innerHTML;
-		chrome.runtime.sendMessage({command: phrase}, function(response){
-			console.log(response.feedback);
-		});
-		
 	}
 }
 function build(data){
