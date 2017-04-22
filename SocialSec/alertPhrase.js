@@ -19,4 +19,13 @@ window.onload = function(){
 		});
 		
 		};
+			document.getElementById("WLphrase").onclick = function(){
+		var phrase = document.getElementById("xphrase").innerHTML;
+		chrome.runtime.sendMessage({command: phrase}, function(response){
+			console.log(response.feedback);
+		});
+		this.disabled = true;
+		this.innerHTML = "Phrase whitelisted";
+	}
+		
 }

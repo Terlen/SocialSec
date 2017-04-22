@@ -1,4 +1,3 @@
-
 var detectedPhrase;
 
 // Defines a flag that is used to determine if the SocialSec notification already has a listener added.
@@ -43,6 +42,23 @@ chrome.runtime.onMessage.addListener(
 			chrome.browserAction.setIcon({path : "icon.png"});
 			chrome.browserAction.setPopup({popup : "popup2.html"});
 			sendResponse({complete: "done"});
+		}
+		else if (request.command){
+			trie.remove(request.command);
+			chrome.storage.sync.get("phraseWhitelist", function(item){
+				if(!item.phraseWhitelist){
+					var whitelist = request.command;
+					chrome.storage.sync.set({"phraseWhitelist": whitelist});
+				}else{
+				var whitelist = [item.phraseWhitelist];
+				whitelist.push(request.command);
+				chrome.storage.sync.set({"phraseWhitelist": whitelist});
+				}
+			});
+			sendResponse({feedback: "Good work"});
+		}
+		else if (request.clear){
+			trie.Data();
 		}
   });
 
