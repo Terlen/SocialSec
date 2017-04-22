@@ -32,6 +32,7 @@
 	],
 	
 	"background": {
+		"scripts": ["browserAction.js"],
 		"persistent": false
 	},
 	
