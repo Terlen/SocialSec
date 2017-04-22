@@ -57,6 +57,9 @@ chrome.runtime.onMessage.addListener(
 			});
 			sendResponse({feedback: "Good work"});
 		}
+		else if (request.clear){
+			trie.Data();
+		}
   });
 
 // Function opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.

@@ -39,6 +39,14 @@ window.onload = function(){
 		document.getElementById("pshow").style.display = "inline";
 		document.getElementById("phide").style.display = "none";
 	}
+	
+	document.getElementById("clearWhite").onclick = function(){
+		var result = confirm("This will delete your custom whitelist, are you sure this is what you want?");
+		if (result){
+			chrome.storage.sync.remove("phraseWhitelist");
+			chrome.runtime.sendMessage({clear: "clear"});
+		}
+	}
 }
 function build(data){
 	values = data.userdata.splice(0,4);
