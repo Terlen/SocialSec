@@ -1,4 +1,16 @@
+
+
 // This is a content script that runs on all webpages visited by the user.
+chrome.storage.sync.get("whitepage",function(item){
+	if(typeof(item["whitepage"]) !== 'undefined' && item["whitepage"] instanceof Array && item.whitepage.indexOf('"'+window.location.href+'"') != -1)
+	{console.log("Page has been whitelisted.")}
+	else{
+		passwordGrab();
+		dataLoad();
+	};
+	//window.location.href.localeCompare(item.whitepage[0].replace(/['"]+/g, '')));
+});
+
 function passwordGrab(){
 	// Locate input fields with type "password". Stores list of fields as a static NodeList object
 	var password = document.querySelectorAll('input[type=password]');
@@ -18,8 +30,7 @@ function passwordGrab(){
 		});
 		}
 	}
-passwordGrab();
-dataLoad();
+
 function dataLoad(){
 	chrome.storage.sync.get("userdata", function(item){
 		if (item.userdata){
