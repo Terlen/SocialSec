@@ -1,3 +1,7 @@
+/* This script is the main event page script. It contains the code to create the trie data structure for storing user data, it handles inter-extension 
+	communication via Chrome message passing, it interfaces with the Google storage API to store the user's data, whitelists, and profile picture
+	remotely, and it spawns the alert notifications when user data is detected in a password. */
+
 var detectedPhrase;
 var trie;
 // Defines a flag that is used to determine if the SocialSec notification already has a listener added.
@@ -102,7 +106,7 @@ function notificationPage(){
 	}
 }
 
-// Trie data structure code is adapted from Ben Vallon's Computer Science in Javascript #data-structures series
+// Trie data structure code is inspired by and adapted from Ben Vallon's Computer Science in Javascript #data-structures series
 // His code can be found at https://github.com/benoitvallon/computer-science-in-javascript/blob/master/data-structures-in-javascript/trie.js
 
 // Node object creation. When called, creates Node object with given properties.
@@ -125,10 +129,13 @@ Trie.prototype.add = function(node, word) {
   }
   node.prefixes++;
   var letter = word.charAt(0);
-// Check if the node already has a child with the given letter. If no child is found for that letter, create a new one and add it to the previous node's child property.
-// Important to note that although children was originally declared as an empty array, by using a named index and not a numerical, Javascript automatically converts to an object.
+  /* Check if the node already has a child with the given letter. If no child is found for that letter, create a new one and add it to the previous node's 
+	 child property. Important to note that although children was originally declared as an empty array, by using a named index and not a numerical, 
+	 Javascript automatically converts to an object. */
   var child = node.children[letter];
   if(!child) {
+		/* Substitution handling. If one of the pre-defined substitution characters is added to the trie, substitution characters are added and the 
+		   trie is branched from the substitutions as well as the original character. */
 	    if (letter.match(/^(a|b|c|e|g|i|l|o|s|t)$/)){
 			switch (letter){
 				case 'a':
@@ -226,7 +233,9 @@ Trie.prototype.add = function(node, word) {
 				default:
 					alert('No data matched. You should not be seeing this.')
 			}
-		}else{
+		}
+		// If the added character isn't a commonly substituted character, simply add it to the trie.
+		else{
 			child = new Node(letter);
 			node.children[letter] = child;
 		}
@@ -234,9 +243,8 @@ Trie.prototype.add = function(node, word) {
 
 this.addRecursive(child, word);
  };
-// Determine how many characters are left in word to be added. If none, set isWord flag to true and complete. Else, recursively call add with new child node and rest of word.
-
-//For loop needed for each created Node
+/* Determine how many characters are left in word to be added. If none, set isWord flag to true and complete. Else, recursively call add with new child
+   node and rest of phrase. */
 Trie.prototype.addRecursive = function(child, word){
   var remainder = word.substring(1);
   if(!remainder) {
@@ -269,10 +277,7 @@ Trie.prototype._getWords = function(node, words, word) {
 // This meant .contains required modification to search the entirety of a string for a keyword.
 var fullWord ="";
 Trie.prototype.contains = function(node, word) {
-	
-	//alert(node.data);
   if(!node || !word) {
-	  //alert("NO TRIE OR WORD");
     return false;
   }
   var letter = word.charAt(0);
@@ -284,33 +289,34 @@ Trie.prototype.contains = function(node, word) {
 		var finalWord = fullWord;
 		fullWord="";
       return finalWord;
-    } else {
+    } 
+	else {
 		fullWord+=child.data.toString();
-		
-      return this.contains(child, remainder);
+		return this.contains(child, remainder);
     }
 // The original .contains method simply terminates the search if there a node has no children containing the target letter.
 // This doesn't work for our use case as the keyword may lie after an arbitrary string not contained in the trie.
-  } else {
+  } 
+  else {
 	// If there is no branch off root with the current letter, move to the next letter of the target string.
 	if (!remainder){
 		fullWord="";
 		return this.contains(this.root, word.substring(1));
 	// If there is no branch off the current node with the current letter but the target string has not been fully searched, restart the search at root from the current location in the target string.
-	}  else if (remainder.substring(1).length > 0){
+	}  
+	else if (remainder.substring(1).length > 0){
 		return this.contains(this.root, remainder.substring(1));
 	// The full target string has been searched and there was no hit. This means the target string truely doesn't contain any keywords.
-	}  else{
-		//alert("full phrase test");
+	}  
+	else{
 		return false;
 	}
-	
   }
 };
 
+// Function to remove words from the trie.
 Trie.prototype.remove = function(word){
 	if(!this.root){
-		alert("NO ROOT");
 		return;
 	}
 	if(this.contains(this.root,word)){
@@ -320,13 +326,13 @@ Trie.prototype.remove = function(word){
 
 Trie.prototype._removeNode = function(node, word){
 	if(!node || !word){
-		alert("NO ROOT OR WORD");
 		return;
 	}
 	node.prefixes--;
 	var letter = word.charAt(0);
 	var child = node.children[letter];
 	if(child){
+		// Because words may introduce substitutions when added, all variations must be removed as well.
 		if (letter.match(/^(a|b|c|e|g|i|l|o|s|t)$/)){
 			switch(letter){
 				case 'a':
@@ -391,25 +397,27 @@ Trie.prototype._removeNode = function(node, word){
 					letter = '7';
 					this.recursiveRemove(letter,word,node,child);
 					break;
-				default:
-					alert("DEFAULT CASE");
 			}
 		
-		} else{
-		var remainder = word.substring(1);
-		if(remainder){
-			if(child.prefixes === 1){
-				delete node.children[letter];
-			} else{
-				this._removeNode(child, remainder);
+		} 
+		else{
+			var remainder = word.substring(1);
+			if(remainder){
+				if(child.prefixes === 1){
+					delete node.children[letter];
+				} 
+				else{
+					this._removeNode(child, remainder);
+				}
+			}	 
+			else{
+				if(child.prefixes === 0){
+					delete node.children[letter];
+				} 
+				else{
+					child.isWord = false;
 			}
-		} else{
-			if(child.prefixes === 0){
-				delete node.children[letter];
-			} else{
-				child.isWord = false;
 			}
-		}
 		}
 	}
 };
@@ -419,17 +427,22 @@ Trie.prototype.recursiveRemove = function(letter, word, node, child){
 	if(remainder){
 		if(child.prefixes === 1){
 			delete node.children[letter];
-		} else{
+		} 
+		else{
 			this._removeNode(child, remainder);
 		}
-	} else{
+	} 
+	else{
 		if(child.prefixes === 0){
 			delete node.children[letter];
-		} else{
+		} 
+		else{
 			child.isWord = false;
 		}
 	}
 }
+
+// Debug function to print trie characters per level
 Trie.prototype.printByLevel = function() {
   if(!this.root) {
     return console.log('No root node found');
@@ -451,6 +464,7 @@ Trie.prototype.printByLevel = function() {
   }
   console.log(string.trim());
 };
+
 // Fetch stored data in Chrome storage. Once completed, call buildTrie and pass retrieved data.
 function trieData(){
 	chrome.storage.sync.get("phraseWhitelist", function(data){
@@ -459,7 +473,8 @@ function trieData(){
 				var array = data.userdata;
 				buildTrie(array);
 			});
-		}else{
+		}
+		else{
 			chrome.storage.sync.get("userdata", function(item){
 				var trieData = item.userdata.filter(function(val){
 					return data.phraseWhitelist.indexOf(val) == -1;
@@ -474,19 +489,10 @@ function trieData(){
 // Create trie structure with fetched data from Chrome storage.
 function buildTrie(data){
 	trie = new Trie();
-	/* if (data.userdata){
-		for (var x = 0; x < data.userdata.length; x++){
-			var value = (data.userdata[x]);
-			trie.add(trie.root,data.userdata[x].toString());
-		}
-	}else{ */
 	for (var x = 0; x < data.length; x++){
 			var value = (data[x]);
 			trie.add(trie.root,data[x].toString());
 		}
-// Debug code to list contents of trie.
-	//alert(trie.getWords());
-	//alert("Does trie contain \"testaidantest\"?" + trie.contains("testaidantest"));
 }
 
 // HTTP GET request function. 'theUrl' is passed from getData and consists of the desired Graph API endpoint with the user's access token appended.
@@ -558,48 +564,6 @@ function findDates(array,max,min){
 	}
 	
 }
-// Deletes unnecessary data from JSON to reduce size of object for storage.
-// Quick and dirty code, can be improved later.
-/*function dataCleanup(bigData) {
-	var dataValues = [];
-	for (var x = 0; x < bigData.education.length; x++){
-		dataValues.push(bigData.education[x].school.name);
-		dataValues.push(bigData.education[x].year.name);
-		delete bigData.education[x].id;
-		delete bigData.education[x].school.id;
-		delete bigData.education[x].year.id;
-	}
-	delete bigData.id;
-	for (var x = 0; x < bigData.taggable_friends.data.length; x++){
-		dataValues.push(bigData.taggable_friends.data[x].name);
-		delete bigData.taggable_friends.data[x].id;
-		delete bigData.taggable_friends.data[x].picture;
-	}
-	delete bigData.taggable_friends.paging;
-	for (var x = 0; x < bigData.work.length; x++){
-		// delete operator has issues handling undefined values, safety is implemented to avoid typeError later
-		var workSafety = bigData['work'][x]['location'];
-		dataValues.push(bigData['work'][x]['employer']['name']);
-		delete bigData['work'][x]['employer']['id'];
-		delete bigData.work[x].id;
-		delete bigData.work[x].description;
-		delete bigData.work[x].end_date;
-		delete bigData.work[x].start_date;
-		// error prevention / handling
-		if (workSafety != null){
-			dataValues.push(bigData['work'][x]['position']['name']);
-			dataValues.push(bigData['work'][x]['location']['name']);
-			delete bigData['work'][x]['location']['id'];
-			delete bigData.work[x].position.id;
-		}
-		dataValues.push(bigData.favorite_teams[x].name);
-		dataValues.push(bigData.hometown.name);
-		delete bigData.favorite_teams[x].id;
-		delete bigData.hometown.id;
-	}
-	wordlistStore(bigData);
-}*/
-
 
 // Store JSON object in Google storage to retrieve later
 function wordlistStore(jsonobject,type) {
