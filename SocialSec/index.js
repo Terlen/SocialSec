@@ -21,6 +21,14 @@ window.onload = function(){
 		document.getElementById("xshow").style.display = "inline";
 		document.getElementById("xhide").style.display = "none";
 	}
+	
+	document.getElementById("WLphrase").onclick = function(){
+		var phrase = document.getElementById("xphrase").innerHTML;
+		chrome.runtime.sendMessage({command: phrase}, function(response){
+			console.log(response.feedback);
+		});
+		
+	}
 }
 function build(data){
 	values = data.userdata.splice(0,4);

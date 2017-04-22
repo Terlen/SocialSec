@@ -44,6 +44,10 @@ chrome.runtime.onMessage.addListener(
 			chrome.browserAction.setPopup({popup : "popup2.html"});
 			sendResponse({complete: "done"});
 		}
+		else if (request.command){
+			trie.remove(request.command);
+			sendResponse({feedback: "Good work"});
+		}
   });
 
 // Function opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
