@@ -43,7 +43,9 @@ chrome.runtime.onMessage.addListener(
 	
 	// If received message greeting is secure, build the trie using stored data and change icons to indicate that extension is operating.
 	else if (request.greeting == "secure"){
-		trieData();
+		if (!trie){
+			trieData();
+		}
 		chrome.browserAction.setIcon({path : "img/icon.png"});
 		chrome.browserAction.setPopup({popup : "popup2.html"});
 		sendResponse({complete: "done"});
