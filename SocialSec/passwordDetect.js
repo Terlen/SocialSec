@@ -11,7 +11,6 @@ function passwordGrab(){
 	}
 
 	function alertContent(form){
-		//alert(this.value);
 		var detectedPass = form.querySelector('input[type=password]').value;
 		chrome.runtime.sendMessage({passvalue: detectedPass.toLowerCase()}, function(response){
 			console.log(response.complete);
