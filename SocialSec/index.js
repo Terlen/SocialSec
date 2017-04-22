@@ -59,6 +59,7 @@ function build(data){
 }
 
 function phraseDisplay(whitelist){
+	if (whitelist.phraseWhitelist){
 		if (Array.isArray(whitelist.phraseWhitelist)){
 			phrases = whitelist.phraseWhitelist.splice(0,whitelist.phraseWhitelist.length);
 		}else{
