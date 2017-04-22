@@ -73,7 +73,10 @@ chrome.runtime.onMessage.addListener(
 
 // Function opens new window or tab based on user prefences in Chrome. Cannot force new tab only. Will focus on new window/tab when opened.
 function userSettings(){
-	
+	chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
+    var url = tabs[0].url;
+	chrome.storage.local.set({"currentURL":url})
+	});
 	var x = window.open("alert.html", '_blank');
 	x.focus();
 }
