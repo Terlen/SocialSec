@@ -25,7 +25,11 @@ window.onload = function(){
 	
 	document.getElementById("pshow").onclick= function(){
 		if (document.getElementById("phraseList").style.display == "none"){
-			document.getElementById("phraseList").innerHTML = phrases.toString().replace(/,/g,"<br>");
+			if (Array.isArray(phrases)){
+				document.getElementById("phraseList").innerHTML = phrases.toString().replace(/,/g,"<br>");
+			}else{
+				document.getElementById("phraseList").innerHTML = phrases;
+			}
 			document.getElementById("phraseList").style.display = "block";
 		}else{
 			document.getElementById("phraseList").style.display = "block";
@@ -45,6 +49,7 @@ window.onload = function(){
 		if (result){
 			chrome.storage.sync.remove("phraseWhitelist");
 			chrome.runtime.sendMessage({clear: "clear"});
+			location.reload();
 		}
 	}
 }
@@ -54,5 +59,13 @@ function build(data){
 }
 
 function phraseDisplay(whitelist){
-	phrases = whitelist.phraseWhitelist.splice(0,whitelist.phraseWhitelist.length);
+		if (Array.isArray(whitelist.phraseWhitelist)){
+			phrases = whitelist.phraseWhitelist.splice(0,whitelist.phraseWhitelist.length);
+		}else{
+			phrases = whitelist.phraseWhitelist;
+		}
+	}else{
+		phrases = "No custom whitelist!";
+	}
+	
 }
