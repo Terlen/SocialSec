@@ -45,8 +45,17 @@ chrome.runtime.onMessage.addListener(
 			sendResponse({complete: "done"});
 		}
 		else if (request.command){
-			alert("REMOVE"+request.command);
 			trie.remove(request.command);
+			chrome.storage.sync.get("phraseWhitelist", function(item){
+				if(!item.phraseWhitelist){
+					var whitelist = request.command;
+					chrome.storage.sync.set({"phraseWhitelist": whitelist});
+				}else{
+				var whitelist = [item.phraseWhitelist];
+				whitelist.push(request.command);
+				chrome.storage.sync.set({"phraseWhitelist": whitelist});
+				}
+			});
 			sendResponse({feedback: "Good work"});
 		}
   });
