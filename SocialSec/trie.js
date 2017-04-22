@@ -233,12 +233,58 @@ Trie.prototype._removeNode = function(node, word){
 					letter = '4';
 					this.recursiveRemove(letter,word,node,child);
 					break;
+				case 'c':
+					letter = 'c';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '(';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 'e':
+					letter = 'e';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '3';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 'g':
+					letter = 'g';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '9';
+					this.recursiveRemove(letter,word,node,child);
+					break;
 				case 'i':
 					letter = 'i';
 					this.recursiveRemove(letter,word,node,child);
 					letter = '1';
 					this.recursiveRemove(letter,word,node,child);
 					letter = '!';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 'l':
+					letter = 'l';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '1';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '!';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 'o':
+					letter = 'o';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '0';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 's':
+					letter = 's';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '5';
+					this.recursiveRemove(letter,word,node,child);
+					break;
+				case 't':
+					letter = 't';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '+';
+					this.recursiveRemove(letter,word,node,child);
+					letter = '7';
 					this.recursiveRemove(letter,word,node,child);
 					break;
 				default:
